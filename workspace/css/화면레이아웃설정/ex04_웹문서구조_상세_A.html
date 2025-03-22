@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>      
+        header, nav, section, article, aside, footer, div{
+            display:block;
+            border:1px solid red;
+            box-sizing:border-box;
+        /*    font-size: 30px; */
+        }
+
+        .wrap{
+            width:100%;
+            max-width:1300px;
+            margin:auto;
+
+            display:flex;
+            flex-direction:column; /*아이템요소들의 가로길이는 부모요소 100%*/
+        }
+
+        .header{
+            height:200px;
+
+            display:flex;
+            flex-direction:column;
+        }
+        .header_top{
+            height:80%;
+            display:flex;
+        }
+        .header_logo, .header_alarm{
+            width:20%;
+        }
+        .header_search{
+            width:60%;
+        }
+        .header_nav{
+            height:20%;
+        }
+        .content_wrap{
+            min-height:500px;
+
+            display:flex;
+            /* flex-direction:row; */
+        }
+        .content_news{width:70%;}
+        .content_side{
+            width:30%;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .content_side_myinfo{
+            height:150px;
+        }
+        .content_side_ad{
+            height:350px;
+        }
+
+
+
+        .footer{
+            height:200px;
+
+            display:flex;
+            flex-direction:column;
+        }
+        .footer_link{
+            height:20%;
+        }
+        .footer_info{
+            height:80%;
+        }
+    </style>    
+</head>
+<body>
+    <!--
+    시맨틱태그 : HTML5 이후 가능
+                IE8이하에서는 인라인 요소를 인식=>불럭요소를 처리. display:block 처리 안전
+                div 구조 동일
+        header : 가장위에 나타나는 머릿말
+        nav    : 메뉴바
+        section : 본문내용,컨텐츠 의미
+        article : 내용 중 따로 분할하여 묶는 태그
+        aside: 분문이외의 내용. 광고,링크 등...
+        footer : 바닥글(저작권,회사정보,...)
+    -->
+    <div class="wrap">
+
+        <header class="header">
+
+            <div class="header_top">
+                <div class="header_logo"></div>
+
+                <!-- 검색창 영역 따로 진행 -->
+                <div class="header_search"></div>
+                <!-- ------------------- -->
+
+                <div class="header_alarm"></div>
+            </div>
+
+            <!-- 메뉴바 영역 따로 진행 -->
+            <nav class="header_nav"></nav>
+            <!-- -------------------- -->
+
+        </header>
+
+        <section class="content_wrap">
+
+            <div class="content_news">
+
+            </div>
+
+            <div class="content_side">
+
+                <!-- 로그인 폼 영역 따로 진행 -->
+                <div class="content_side_myinfo"></div>
+                <!-- ---------------------- -->
+
+                <div class="content_side_ad"></div>
+            </div>
+
+        </section>
+
+        <!-- 푸터바 영역 따로 진행 -->
+        <footer class="footer">
+
+            <div class="footer_link">
+
+            </div>
+            <div class="footer_info">
+
+            </div>
+
+        </footer>
+        <!-- ------------------- -->
+        
+    </div>
+</body>
+</html>

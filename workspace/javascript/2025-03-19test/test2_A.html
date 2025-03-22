@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>구구단출력하기</title>
+<style type="text/css">
+ table { width:100%; border-collapse: collapse;}
+ th,td {border : 3px solid #bcbcbc; text-align: center; padding: 8px;}
+ th {background-color: #e2e2e2; color:#111111;}
+ td {background-color: #f2f2f2;}
+ caption {color:#111111; font-size: 20px; background-color: #ffffff;}
+</style>
+<script type="text/javascript">
+   function print1() { //세로 출력 버튼 클릭시 호출되는 함수
+	  let html = "<table><caption>세로출력</caption>";
+	  for(let i=2;i<=9;i++) {
+		  html += "<tr><th>" + i + "단</th></tr>";
+		  for(let j=2;j <= 9;j++) {
+			  html += "<tr><td>" + i + "*" + j + "="+(i*j)+"</td></tr>";
+		  }
+	  }
+	  html += "</table>";
+	  //<div id="gugudan"></div> 내부에 html 문장 입력.
+	  gugudan.innerHTML = html;
+   }
+   function print2() { //가로 출력 버튼 클릭시 호출되는 함수
+	  let html = "<table><caption>가로출력</caption><tr>";
+	  for(let i=2;i<=9;i++) {
+		  html += "<th>" + i + "단</th>";
+	  }
+	  html += "</tr>";
+	  for(let j=2;j<=9;j++) {
+		  html += "<tr>";
+		  for(let i=2;i <= 9;i++) {
+			  html += "<td>" + i + "*" + j + "="+(i*j)+"</td>";
+		  }
+		  html += "</tr>";
+	  }
+	  html += "</table>";
+	  gugudan.innerHTML = html;
+	}
+   function print3() { //2단 출력버튼 클릭시 호출되는 함수
+	  let html = "<table><caption>2단출력</caption>";
+	  for(i=2;i<=9;i+=4) { //1:2~5, 2:6~9 
+		  html += "<tr>";
+		  for(let k=0;k<4;k++) {
+			  html += "<th>" + (i+k) + "단</th>";
+		  }
+		  html += "</tr>";
+		  for(let j=2;j<=9;j++) {
+			  html += "<tr>";
+			  for(let k=0;k<4;k++) {
+				  html += "<td>" + (i+k) + "*" + j + "=" + 
+				     ((i+k)*j) + "</td>";
+			  }
+			  html += "</tr>";
+		  }
+	  }
+	  html += "</table>";
+      document.getElementById("gugudan").innerHTML = html;
+   }
+</script>
+
+</head>
+<body>
+<input type="button" value="세로출력" onclick="print1()">
+<input type="button" value="가로출력" onclick="print2()">
+<input type="button" value="2단출력" onclick="print3()">
+<div id="gugudan"></div>
+</body>
+</html>

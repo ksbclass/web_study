@@ -1,0 +1,23 @@
+<!DOCTYPE html>>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>반응형 웹</title>
+        <style type="text/CSS">
+            /*media : 화면의 크기별로 다른 css 적용이 가능함.@*/
+            @media(max-width :600px){/*화면 크기가 최대 600까지*/
+                body{background: red;}
+            }
+            @media(min-width:601px)and (max-width:999px){ /*화면크기가 601~999까지*/
+                body{background: green;}
+            }
+            @media(min-width:1000px){ /*화면 크기가 최소 1000인 경우*/
+                body{background: blue;}
+            }
+        </style>
+    </head>
+    <body>
+        <h1>@media 태그 예제</h1>
+        <p>화면의 크기 별로 바탕색이 달라집니다.</p>
+    </body>
+</html>

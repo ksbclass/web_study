@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        1. 산술 연산자
+            1) 더하기 : +
+            2) 빼기 : -
+            3) 곱하기 : *
+            4) 나누기 : / (5/2 = 2.5) => 함수를 사용 parseInt(5/2 => 2 ),Math.floor(5/2 => 2)
+            5) 나머지 : %
+            6) 증감 연산자 : ++,--
+            7) 제곱 연산자 : ** (2**3 => 8)
+        2. 비교 연산자 : >,>=,<,<=,== ,===, !=, !==
+            1) 같다
+                == : 값만 비교.(1== "1" : true) 
+                === : 값과 자료형 비교 (1==='1' false)
+            2) 같지 않다.
+                != : 값만 비교.(1== "1" : false) 
+                !== : 값과 자료형 비교 (1==='1' true)
+        3. 논리 연산자 : &&(AND) ||(OR),!(NOT)
+        4. 대입 연산자 : =,+=,-=,*=,...
+        5. 조건 연산자 : (조건식) ? 참 : 거짓
+        6. 문자열 연산자 : +
+        */
+    </script>
+    <script>
+        /*
+            최저 시급 9620원이다. 8시간 까지는 최저 시급을 받고, 8시간 초과 근무는 최저 시급의 1.5배를
+            받는다고 할때 10시간 근무 했을 경우의 일당을 출력하기
+        */
+        let a = 9620; 
+        let b = a*8+(a*1.5)*2;
+        console.log(b);
+        let payPerHour = 9620;
+        let workTime =10;
+        let totalPay = (payPerHour*workTime) + ((workTime>8)?(payPerHour*0.5*(workTime-8)):0);
+        alert("총급여" + totalPay);
+    </script>
+</body>
+</html>

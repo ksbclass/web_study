@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>3행 3열짜리 테이블을 생성하고, 내용은 1~9까지의 값을 넣어서</p>
+    <div id="box1"></div>
+    <script>
+        let a = `<table border="1">`;
+            for(let i = 1; i <=3; i++){
+                a +="<tr>";
+                for(let j = 1 ;j <=3; j++){
+                    a += "<td>"+((i-1)*3+j)+"</td>";
+                }
+            }
+            a += "</tr>";
+            a += "</table>";
+            document.querySelector("#box1").innerHTML = a ;
+    </script>
+</body>
+</html>

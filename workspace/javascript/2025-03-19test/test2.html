@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>구구단출력하기</title>
+<style type="text/css">
+ table { width:100%; border-collapse: collapse;}
+ th,td {border : 3px solid #bcbcbc; text-align: center; padding: 8px;}
+ th {background-color: #e2e2e2; color:#111111;}
+ td {background-color: #f2f2f2;}
+ caption {color:#111111; font-size: 20px; background-color: #ffffff;}
+</style>
+</head>
+<body>
+<input type="button" value="세로출력" onclick="print1()">
+<input type="button" value="가로출력" onclick="print2()">
+<input type="button" value="2단출력"  onclick="print3()">
+<div id="gugudan"></div>
+<script>
+    function print1(){
+        let dan = "<table><caption>세로 출력</caption>";
+        for(i=2;i<=9;i++){
+            dan +="<tr><th>"+i+"단</th></tr>";
+            for(j=2;j<=9;j++){
+            dan +="<tr><td>"+i+"*"+j+"="+(i*j)+"</td></tr>";
+            }
+        }
+        dan +="</table>";
+        document.getElementById('gugudan').innerHTML=dan;
+    }
+    function print2(){
+        let dan = "<table><caption>가로 출력</caption><tr>";
+        for(i=2;i<=9;i++){
+            dan +="<th>"+i+"단</th>";
+        }
+        dan +='</tr>';
+        for(i=2;i<=9;i++){
+            dan += '<tr>';
+            for(j=2;j<=9;j++){
+            dan +="<td>"+j+"*"+i+"="+(i*j)+"</td>";
+            }
+            dan += "</tr>"
+        }
+        dan +="</table>";
+        document.getElementById('gugudan').innerHTML=dan;
+    }
+    function print3(){
+        let dan = "<table><caption>2단 출력</caption><tr>";
+        for(i=2;i<=5;i++){
+            dan +="<th>"+i+"단</th>";
+        }
+        dan +='</tr>';
+        for(i=2;i<=9;i++){
+            dan += '<tr>';
+            for(j=2;j<=5;j++){
+            dan +="<td>"+j+"*"+i+"="+(i*j)+"</td>";
+            }
+            dan += "</tr>";
+        }
+        dan +="<tr>";
+        for(i=6;i<=9;i++){
+            dan +="<th>"+i+"단</th>";
+        }
+        dan +='</tr>';
+        for(i=2;i<=9;i++){
+            dan += '<tr>';
+            for(j=6;j<=9;j++){
+            dan +="<td>"+j+"*"+i+"="+(i*j)+"</td>";
+            }
+            dan += "</tr>"
+        }
+        document.getElementById('gugudan').innerHTML=dan;
+    }
+</script>
+</body>
+</html>

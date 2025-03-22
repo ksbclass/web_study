@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>
+        nums 폴더의 이미지를 num0.jpg~ num9.jpg 이미지를 화면에 출력하기 <br>
+        위와 같은 img 태그를  구현하여 box1에 출력하기
+    </p>
+    <div id="box1"></div>
+    <script>
+        let str = "";
+        for(i=0; i<=9;){
+            str += '<img src="./nums/num'+i+'.jpg">';
+        }
+        document.querySelector("box1").innerHTML = str;
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red{background-color: red;}
+        .blue{background-color: blue;}
+        .green{background-color: green;}
+        .container{
+            border: 1px solid black;
+            height: 200px;
+        }
+        .item{
+            color: white;
+            font-weight: bold;
+            margin: 5px;
+        }
+        /*순서 선택자 (:nth-child(n))*/
+        .item:nth-child(1) {font-size: 20px;}
+        .item:nth-child(2) {font-size: 40px;}
+        .item:nth-child(3) {font-size: 10px;}
+        .container1,.container2{
+            display: flex;
+            align-items: center;
+        }
+        .item2{
+            /*아이템의 기본길이 width:200px;*/
+            flex-basis: 200px;
+        }
+        .item2:nth-child(1){
+            /*flex-grow flew-shrink flex-basis
+            flew-grow : 0 : flex-basis 커지지 않음. 기본값
+                        1 : 컨테이너 사이즈에 맞게 flex-basis보다 커질수 있음.
+            flew-shrink 0 : flex-basis 작아지지 않음 .
+                        1 : flex-basis 로 잡은길이보다 더 작아 질수있음. 기본값
+            */
+            flex:1 0 200px;
+        }
+        .item2:nth-child(2){
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
+        .item2:nth-child(3){
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container container1">
+        <div class="item red item1">이미지1</div>
+        <div class="item blue item1">이미지2</div>
+        <div class="item green item1">이미지3</div>
+    </div>
+
+    <hr>
+
+    <div class="container container2">
+        <div class="item red item2">아이템1</div>
+        <div class="item blue item2">아이템2</div>
+        <div class="item green item2">아이템3</div>
+    </div>
+    
+</body>
+</html>

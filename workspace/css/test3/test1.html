@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        header,nav,section,footer,div{
+            display: block;
+            border: 1px solid white;
+            box-sizing: border-box;
+        }
+        .wrap {
+            width: 100%;
+            max-width: 1300px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+        }
+        .header {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            background-color: white;
+        }
+        .header_logo_mini img {
+            width: 100px;
+            height: 60px;
+        }
+        .header_logo_big {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .header_logo_big img {
+            height: 80px;
+        }
+        .header_etc {
+            width: 100px;
+            height: 60px;
+            background-color: white;
+        }
+        .nav {
+            background-color: darkgreen;
+            padding: 5px 10px;
+        }
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+        }
+        .nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        .nav ul li a:hover {
+            text-decoration: underline;
+        }
+        a{
+            text-decoration: none;
+        }
+        .content_wrap {
+            display: flex;
+            padding: 10px 20px;
+        }
+        .content_side {
+            width: 15%;
+            padding-right: 10px;
+        }   
+        .content_side img {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+        }
+        .content_img {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .content_img_top, .content_img_bottom {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .content_img_top div, .content_img_bottom div {
+            flex: 1;
+            text-align: center;
+        }
+        .content_img img {
+            width: 100%;
+            height: auto;
+        }
+        .content_img p {
+            margin-top: 5px;
+            font-weight: bold;
+            color:  black;
+        }
+        .content_etc {
+            width: 15%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-left: 10px;
+        }
+        .content_login{
+            height: 20%;
+            width: auto; 
+        }
+        .login_form{
+            width: 100%;
+            height: 70%;
+            display: flex;
+        }
+        .login_input_wrap{
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+        }
+        .login_input_wrap>input{
+            height: 100%;
+        }
+        .login_btn{
+            width: 30%;
+        }
+        .login_btn>button{
+            width: 100%;
+            height: 100%;
+        }
+        .login_etc{
+            width: 90%;
+            height: 20%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .login_etc a{
+            color: black;
+            font-size: 12px;
+        }
+        .content_poster img{
+            width: 100%;
+            height: 300px;
+        }
+        .content_message img {
+            width: 100%;
+            height: 200px;
+        }
+        .footer{
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+        <header class="header">
+            <div class="header_logo_mini">
+                <a href=""><img src="t1/logo.jpg" alt=""></a>
+            </div>
+            <div class="header_logo_big">
+                <a href=""><img src="t1/mainlogo.jpg" alt=""></a>
+            </div>
+            <div class="header_etc"></div>
+        </header>
+        <nav class="nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Board</a></li>
+                <li><a href="#">Contact</a></li> 
+            </ul>
+        </nav>
+        <section class="content_wrap">
+            <div class="content_side">
+                <img src="t1/left_img.jpg" alt="">
+            </div>
+            <div class="content_img">
+                <div class="content_img_top">
+                    <div>
+                        <img src="t1/main_img1.jpg" alt="">
+                        <p>나무를 심는 사람들</p>
+                    </div>
+                    <div>
+                        <img src="t1/main_img2.jpg" alt="">
+                        <p>아이들에게 녹색 미래를..</p>
+                    </div>
+                </div>
+                <div class="content_img_bottom">
+                    <div>
+                        <img src="t1/main_img3.jpg" alt="">
+                        <p>설악산 살리는 길</p>
+                    </div>
+                    <div>
+                        <img src="t1/main_img4.jpg" alt="">
+                        <p>사라지는 북극곰들</p>
+                    </div>
+                </div>
+            </div>
+            <div class="content_etc">
+                <div class="content_login">
+                    <form action="" class="login_form">
+                        <div class="login_input_wrap">
+                            <input type="text" name="userId" placeholder="ID를 입력하세요">
+                            <input type="password" name="userPwd" placeholder="PWD를 입력하세요">
+                        </div>
+                        <div class="login_btn">
+                            <button type="submit">로그인</button>
+                        </div>
+                    </form>
+                    <div class="login_etc">
+                        <a href="">회원가입</a>
+                        <a href="">ID/PW 찾기</a>
+                    </div>
+                </div>
+                <div class="content_poster">
+                    <img src="t1/right_img.jpg" alt="">
+                </div>
+                <div class="content_message">
+                    <img src="t1/me_chat.jpg" alt="">
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <img src="t1/footer.JPG" alt="" width="100%" height="100%;">
+        </footer>
+    </div>
+    
+</body>
+</html>

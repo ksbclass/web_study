@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .area{
+            width: 500px;
+            height: 500px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="box1" class="area"></div>
+    <script>
+        let box1 = document.querySelector("#box1");
+        let now = new Date();
+        box1.innerHTML += now + "<br>";
+        let data1 = new Date(2025,2,20,15,20,0);
+        box1.innerHTML += data1 + "<br>";
+        let data2 = new Date(2025,2,20);
+        box1.innerHTML += data2 + "<br>";
+        let data3 = new Date("2025-03-20 15:30:00");
+        box1.innerHTML += data3 + "<br>";
+
+        // 로컬 타임 기준
+        let year = now.getFullYear(); // 년도 :2025
+        let moth = now.getMonth();    // 월 : 3월 -> 2(0~11)
+        let day = now.getDate();       // 일 
+        let weekNo = now.getDay();    // 요일 : 일(0),월(1),화(2),...토(6)
+        let hour = now.getHours();     // 시
+        let minute = now.getMinutes(); // 분
+        let second = now.getSeconds(); // 초
+        box1.innerHTML += `${year},${moth},${day},${weekNo},${hour},${minute},${second} <br><hr>`;
+        //UCT 타임 기준
+        year = now.getUTCFullYear(); // 년도 :2025
+        moth = now.getUTCMonth();    // 월 : 3월 -> 2(0~11)
+        day = now.getUTCDate();       // 일 
+        weekNo = now.getUTCDay();    // 요일 : 일(0),월(1),화(2),...토(6)
+        hour = now.getUTCHours();     // 시
+        minute = now.getUTCMinutes(); // 분
+        second = now.getUTCSeconds(); // 초
+        box1.innerHTML += `${year},${moth},${day},${weekNo},${hour},${minute},${second}<br>`;
+        // 오늘의 요일 출력하기
+        let week = ['일','월','화','수','목','금','토']; 
+        let a = new Date('2025-03-30');
+        let weekname = week[a];
+        box1.innerHTML += `2025-03-20 ${weekname}요일`
+    </script>
+</body>
+</html>

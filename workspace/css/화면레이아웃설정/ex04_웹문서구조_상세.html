@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{box-sizing: border-box;}
+        div{border: 1px solid red;}
+        .wrap{
+            width: 100%;
+            max-width: 1300px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header,.footer{height: 200px;}
+        .content_wrap{
+            min-height:500px;
+            display: flex;
+        }
+        .header{
+            display: flex;
+            flex-direction: column;
+        }
+        .header_top{
+            height: 90%;
+            display: flex;
+        }
+        .header_nav{
+            height: 10%;
+        }
+        .header_logo{width: 20%;}
+        .header_search{
+            width: 60%;
+        }
+        .header_alarm{
+            width: 20%;
+        }
+        .content_news {width: 70%;}
+        .content_side{
+            width:40%;
+            display:flex;
+            flex-direction: column;}
+        .content_side_myinfo{
+            height: 40%;
+        }
+        .content_side_ad{
+            height: 60%;
+        }
+        .footer{
+            display: flex;
+            flex-direction: column;
+        }
+        .footer_link{
+            height: 20%;
+        }
+        .footer_info{height: 80%;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+
+        <header class="header">
+
+            <div class="header_top">
+                <div class="header_logo">header_logo</div>
+
+                <!-- 검색창 영역 따로 진행 -->
+                <div class="header_search">header_search</div>
+                <!-- ------------------- -->
+
+                <div class="header_alarm">header_alarm</div>
+            </div>
+
+            <!-- 메뉴바 영역 따로 진행 -->
+            <nav class="header_nav">header_nav</nav>
+            <!-- -------------------- -->
+
+        </header>
+
+        <section class="content_wrap">
+
+            <div class="content_news">
+                content_news
+            </div>
+
+            <div class="content_side">
+
+                <!-- 로그인 폼 영역 따로 진행 -->
+                <div class="content_side_myinfo">content_side_myinfo</div>
+                <!-- ---------------------- -->
+
+                <div class="content_side_ad">content_side_ad</div>
+            </div>
+
+        </section>
+
+        <!-- 푸터바 영역 따로 진행 -->
+        <footer class="footer">
+
+            <div class="footer_link">
+                footer_link
+            </div>
+            <div class="footer_info">
+                footer_info
+            </div>
+
+        </footer>
+        <!-- ------------------- -->
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div,footer{
+            border: 1px solid blue;
+            box-sizing: border-box;
+        }
+        .footer{
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+        .footer_link{
+            height: 20%;
+            display: flex;
+            align-items: center;
+        }
+        .footer_link>a{
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            margin: 15px;
+        }
+        .footer_info{
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+        }
+        .footer_info_company{
+            list-style-type:"- ";
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            margin-top: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .footer_info_company>li{
+            font-size: 12px;
+        }
+        .footer_info_copyright{
+            height: 20%;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- 푸터바 영역 따로 진행 -->
+    <footer class="footer">
+
+        <div class="footer_link">
+            <a href="">이용약관</a> | 
+            <a href="">개인정보취급방침</a> | 
+            <a href="">인재채용</a> | 
+            <a href="">고객센터</a>
+        </div>
+
+        <div class="footer_info">
+
+            <ul class="footer_info_company">
+                <li>상호명 : GooDee Academy</li>
+                <li>대표자 : 이승엽</li>
+                <li>전화 : 02-818-7950</li>
+                <li>개인정보책임자 : 주승재 / jsj@goodee.co.kr</li>
+                <li>본관 : (08505) 서울특별시 금천구 가산디지털2로 95 (가산동, km타워) 2층, 3층</li>
+            </ul>
+            <div class="footer_info_copyright">
+                Copyright ⓒ GooDee Academy. All rights reserved.
+            </div>
+
+        </div>
+
+    </footer>
+    <!-- ------------------- -->
+
+
+</body>
+</html>
