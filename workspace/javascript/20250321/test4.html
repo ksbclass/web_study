@@ -1,30 +1,74 @@
 <!DOCTYPE html>
-<!-- /webapp/test3/test1.html -->
-<html><head>
+<html lang="ko">
+<head>
 <meta charset="UTF-8">
 <title>달력 출력하기</title>
 <style type="text/css">
- .mon { width:100%; border-collapse: collapse;}
- th.mon,td.mon {border : 3px solid #bcbcbc; 
-        text-align: center; padding: 8px;}
- th.mon {background-color: #e2e2e2; color:#111111;}
- td.mon {background-color: #f2f2f2;}
- caption {color:#111111; font-size: 20px; 
-          background-color: #ffffff;}
- .text-red { color : red;}
- .text-blue { color : blue;} 
- </style>
+ .mon { width:100%; border-collapse: collapse; }
+ th.mon, td.mon { border : 3px solid #bcbcbc; text-align: center; padding: 8px; font-size: 14px; }
+ th.mon { background-color: #e2e2e2; color: #111111; width: 14.285%; }
+ td.mon { background-color: #f2f2f2; }
+ th.mon:first-child, td.mon:first-child {
+    font-size: 12px !important; 
+    padding: 5px !important; 
+ }
+
+ caption { color:#111111; font-size: 20px; background-color: #ffffff; }
+ .text-red { color: red; }
+ .text-blue { color: blue; } 
+</style>
 </head>
 <body>
 <select id="y">
    <option>2020</option><option>2021</option><option>2022</option>
-   <option">2023</option><option>2024</option>
+   <option>2023</option><option>2024</option>
    <option selected="selected">2025</option><option>2026</option>
 </select>
 <input type="button" value="달력보기" onclick="show_cal()">
 <br><span id="cal"></span>
+
 <script>
-   function show_cal(){
+   function show_cal() {
+      const year = document.getElementById("y").value;
+      const month_names = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+      const month_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+      if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
+         month_days[1] = 29;
+      }
+
+      let html = '';
+
+      for (let month = 0; month < 12; month++) {
+         let firstDay = new Date(year, month, 1).getDay();
+         let daysInMonth = month_days[month];
+
+         html += `<table class="mon"><caption>${month_names[month]} ${year}</caption><tr>
+                           <th class="mon">일</th><th class="mon">월</th><th class="mon">화</th><th class="mon">수</th>
+                           <th class="mon">목</th><th class="mon">금</th><th class="mon">토</th></tr><tr>`;
+
+         for (let i = 0; i < firstDay; i++) {
+            html += `<td class="mon"></td>`;
+         }
+
+         for (let day = 1; day <= daysInMonth; day++) {
+            if (firstDay > 6) {
+               firstDay = 0;
+               html += `</tr><tr>`;
+            }
+            html += `<td class="mon">${day}</td>`;
+            firstDay++;
+         }
+
+         while (firstDay <= 6) {
+            html += `<td class="mon"></td>`;
+            firstDay++;
+         }
+
+         html += `</tr></table><br>`;
+      }
+
+      document.getElementById("cal").innerHTML = html;
    }
 </script>
 </body>
