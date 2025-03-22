@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--  webapp/20230324/exam1.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>달력 출력하기</title>
+<style type="text/css">
+ table { width:100%; border-collapse: collapse;}
+ th,td {border : 3px solid #bcbcbc; text-align: center; padding: 8px;}
+ th {background-color: #e2e2e2; color:#111111;}
+ td {background-color: #f2f2f2;}
+ caption {color:#111111; font-size: 20px; background-color: #ffffff;}
+ .text-red {color:red;}
+ .text-blue {color:blue;}
+</style>
+</head>
+<body>
+<select id="y"><option>2023</option><option>2024</option>
+	           <option>2025</option><option>2026</option></select>
+<select id="m"><option value="1">1월</option><option value="2">2월</option>
+<option value="3">3월</option><option value="4">4월</option>
+<option value="5">5월</option><option value="6">6월</option>
+<option value="7">7월</option><option value="8">8월</option>
+<option value="9">9월</option><option value="10">10월</option>
+<option value="11">11월</option><option value="12">12월</option></select>
+<input type="button" value="달력보기" onclick="show_cal()"><br>
+<span id="cal"></span>
+<script>
+	function show_cal(){
+		const y = parseInt(document.getElementById("y").value);
+		const m = parseInt(document.getElementById("m").value);
+		const fdob = new Date(y,m-1,1);
+		const ldob = new Date(y,m,0);
+		const fd = fdob.getDay();
+		const ld = ldob.getDate();
+		let html = "<table>";
+		html += `<caption>${y}년${m}월</caption>`;
+		html += "<tr><td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td></tr>";
+		let cnt =0;
+		html += "<tr>"
+		for (let i =0; i<fd ;i++){
+			html +="<td></td>"
+			cnt++;
+		}
+		for(let i=1; i<=ld; i++){
+			const color = (cnt%7==0)?"text-red":(cnt%7==6)?"text-blue":"";
+			html += `<td class="${color}">${i}</td>`
+			cnt++;
+			if(cnt % 7 ==0 && i !== ld){
+				html += "</tr><tr>";
+			}
+		}
+		while(cnt %7 !==0){
+			html +="<td></td>";
+			cnt++;
+		}
+		html += "</tr></table>"
+		document.getElementById("cal").innerHTML =html;
+	}
+</script>
+</body></html>
