@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .area{
+            border:  1px solid black;
+            width: 500px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h3>배열관련 메소드</h3>
+    <h4>배열.concat(배열,배열,...)</h4>
+    <div id="area1" class="area"></div>
+    <button onclick="concatTest();">확인하기</button>
+    <script>
+        function concatTest(){
+            const area1 = document.querySelector("#area1");
+            const arr1 = ["사과","딸기"];
+            const arr2 = ["자동차","비행기","오토바이"];
+            area1.innerHTML = "arr1 : "+arr1 +"<br>";
+            area1.innerHTML += "arr2 : "+arr2 +"<br>";
+            area1.innerHTML += "arr1.concat(arr2) : "+arr1.concat(arr2) +"<br>";
+            area1.innerHTML += "arr1 : "+arr1 +"<br>"; // arr1 배열 객체를 변경 안됨.
+            let arr3 = arr2.concat(arr1,[1,2,3]); // 대입 연산자를 이용하여 새로운 배열에 저장
+            area1.innerHTML += "arr3 : "+arr3;
+        }
+    </script>
+    <h4>배열.reverse() : 배열의 요소를 역순으로 변경</h4>
+    <div id="area2" class="area"></div>
+    <button onclick="reverseTest();">확인하기</button>
+    <script>
+        function reverseTest() {
+            const divEl = document.getElementById("area2");
+            const arr = [1,2,3,4,5];
+            divEl.innerHTML = "arr : " + arr +"<br>";
+            divEl.innerHTML += "reverse : " + arr.reverse() +"<br>";
+            divEl.innerHTML += "arr : " +arr; // 원본 배열 변경 
+        }
+    </script>
+        <h4>배열.sort() : 배열의 요소를 정렬허가</h4>
+        <div id="area3" class="area"></div>
+        <button onclick="sortTest();">확인하기</button>
+        <script>
+            function sortTest() {
+                const divEl = document.getElementById("area3");
+                const arr = ["홍길동","김삿갓","이몽룡","홍길동","김삿갓"];
+                divEl.innerHTML = "arr : " + arr +"<br>";
+                divEl.innerHTML += "sort : " + arr.sort() +"<br>";
+                divEl.innerHTML += "arr : " +arr +"<br>";
+                // //내림차순 정렬
+                const arr1 = ["홍길동","김삿갓","이몽룡","홍길동","김삿갓"];
+                divEl.innerHTML += "reverse sort : " + arr1.sort().reverse()+"<br>";
+                divEl.innerHTML += "arr1 : " +arr1+ "<br>" 
+                const arr2 = [30,21,101,18,1,201,70,7];
+                divEl.innerHTML += "arr2 sort : " +arr2.sort() +"<br>";
+                /*배열 내의 요소들을 문자열로 변경하여 아스키코드 문자 순서대로 정렬함
+                숫자 크기로 정렬이 안됨.*/
+                divEl.innerHTML += "arr2 오름차순 정렬 : " +arr2.sort(function(left,right){
+                    return left-right
+                }) +"<br>";
+                divEl.innerHTML += "arr2 내림차순 정렬 : " +arr2.sort(function(left,right){
+                    return right-left
+                }) +"<br>";
+            }
+        </script>
+        <h4>배열의 값을 추가, 조회 : push,pop</h4>
+        <div id="area4" class="area"></div>
+        <button onclick="pushPopTest();">확인하기</button>
+        <script>
+            function pushPopTest(){
+                const divEl = document.querySelector("#area4");
+                const arr = ["서초동","우잔상동","역삼동","가산동","방배동"];
+                divEl.innerHTML = "arr : " +arr +"<br>";
+                divEl.innerHTML += "arr에 데이터 추가 후 배열의 크기 : " + arr.push("신도림동") +"<br>";
+                divEl.innerHTML += "arr : "+arr +"<br>";
+                arr.push("잠실본동");
+                arr.push("마곡동");
+                /*
+                push(값) : 베열에 값을 추가, 배열의 크기 리턴
+                pop() : 배열에 마지막 값을 리턴, 배열에서 제거
+                */
+                divEl.innerHTML += "arr : " + arr + "<br>";
+                divEl.innerHTML += "pop : " + arr.pop() + "<br>";
+                divEl.innerHTML += "arr : " + arr + "<br>";
+                arr.pop();
+                arr.pop();
+                arr.pop();
+                divEl.innerHTML += "arr" + arr +"<br>";
+            }
+        </script>
+        <h4>
+            6-1) 배열.unshift(추가할 요소) : 배열의 맨 앞에 요소 추가 후 배열의 크기 반환<br>
+            6-2) 배열.shift() : 배열의 맨 앞에 요소 제거 시키고 제거된요소 반환
+        </h4>
+        <div id="area5" class="area"></div>
+        <button onclick="shiftUnshiftTest();">확인하기</button>
+        <script>
+            function shiftUnshiftTest() {
+                const divE1 =document.getElementById("area5");
+                const arr = ["당구","야구","볼링","테스트"];
+                arr.unshift("농구"); // 농구값이 맨앞에 추가
+                divE1.innerHTML = "unshift 후 : " + arr + "<br>";
+                divE1.innerHTML += "unshift 후 크기 : " + arr.unshift("탁구") + "<br>";
+                let del = arr.shift(); // 맨앞에 요소를 제거. 리턴
+                divE1.innerHTML += "제거시킨 요소 : " +  del +"<br>";
+                divE1.innerHTML += "arr : " +  arr +"<br>";
+            }
+        </script>
+        <h3>
+            7_1) 배열.slice(시작인덱스,끝인덱스) : 시작인덱스에서 끝 인덱스 까지 추출해서 반환 해주는 메소드 <br>
+            7_2) 배열.splice(시작인덱스,제거수,[추가 할 값]) : 배열의 요소 제거 및 추가
+        </h3>
+        <div id="area6" class="area"></div>
+        <button onclick="sliceSpliceTest();">확인하기</button>
+        <script>
+            function sliceSpliceTest(){
+                const divE1 = document.getElementById("area6");
+                const arr = ["Java","Oracle","HTML","CSS","JavaScript"];
+                divE1.innerHTML = "arr : " + arr +"<br>";
+                // slice() : 부분요소
+                divE1.innerHTML += "slice : " +arr.slice(2,4) + "<br>";
+                divE1.innerHTML += "arr : " + arr +"<br>";
+                // 원본 배열에 영향을 끼치는 메소드 아님
+                // splice() : 치환.
+                divE1.innerHTML += "splice : " +arr.splice(2,2,"Spring","MyBatis") + "<br>";
+                divE1.innerHTML += "arr : " + arr +"<br>";
+                // 원본 배열에 영향을 끼치는 메소드임.
+                // Oracle 을 Mariadb 로 변경
+                divE1.innerHTML += "splice : " +arr.splice(1,1,"Mariadb") + "<br>";
+                divE1.innerHTML += "arr : " + arr + "<br>";
+            }
+        </script>
+</body>
+</html>

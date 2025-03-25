@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="area1"></div>
+    <script>
+        let contacts =[
+            {name:'길동',phone : '010-1111-2222',email : 'kildong@aaa.bbb'},
+            {name:'삿갓',phone : '010-2222-3333',email : 'sakgat@aaa.bbb'},
+            {name:'몽룡',phone : '010-3333-4444',email : 'mongtong@aaa.bbb'}
+        ]
+        /*
+        contacts 배열을 이용하여 #area1 영역에 테이블로 출력하기
+        성명 연락처         이메일
+        길동 010-1111-2222  kildong@aaa.bbb
+        ...
+        */
+        let html = "<table  border='1'>";
+        html += "<tr><th>성명</th><th>연락처</th><th>이메일</th></tr>";
+        for(let c= 0; c<contacts.length;c++){
+            html += "<tr><td>"+contacts[c].name+"</td><td>"+contacts[c].phone+"</td><td>"+contacts[c].email+"</td></tr>";
+        }
+        html += "</table>";
+        document.querySelector("#area1").innerHTML = html;
+        let html2 = "<table  border='1'>";
+        html2 += "<tr><th>성명</th><th>연락처</th><th>이메일</th></tr>";
+        for(let i =0; i<contacts.length;i++){
+            html+='<tr>';
+                for(let p in contacts[i]){
+                    // contacts[배열인덱스]][속성값]
+                    html2+='<td>'+contacts[i][p]+'</td>';
+                }
+                html2+="</tr>"
+        }
+        html2 += "</table>";
+        document.querySelector("#area1").innerHTML += html2;
+    </script>
+</body>
+</html>

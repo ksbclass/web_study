@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="area1"></div>
+    <script>
+        /*
+            snack 객체를 이용하여 #area1 영역에 
+            목록으로 출력하기
+            1. code = A100
+            2. name = 홈런볼
+            3. price = 2000
+        */
+        let snack = {
+            code : 'A100',
+            name : '홈런볼',
+            price : 2000
+        }
+        let html = "<ol>";
+        for(let p in snack){
+            html +="<li>"+p+" = "+snack[p]+ "</li>";
+        }
+        html +="</ol>";
+        document.querySelector("#area1").innerHTML += html;
+    </script>
+</body>
+</html>

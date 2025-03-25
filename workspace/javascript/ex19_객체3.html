@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            생성자 함수
+            1. 객체를 만드는 함수
+            2. 보통 첫글자를 대문자로 작성한다.
+            3. 함수 정의
+                function 함수명(매개변수,...){
+                    this.속성 = 매개변수;
+                    ...
+                }
+            4. 객체를 생성
+                let 변수명 = new 함수명(인수값,...);
+        */
+       // 생성자 함수 정의
+        function Product(code,name,price){
+            this.code = code;
+            this.name = name;
+            this.price = price;
+        }
+        // 생성자 함수 호출(객체 생성)
+        let p1 = new Product('A1000','홈런볼',1000);
+        let p2 = new Product('A1001','치토스',2000);
+        console.log(p1);
+        console.log(p2);
+    </script>
+    <script>
+        /*
+            프로토 타입(protype)
+            1. 객체들이 공유하는 메모리 공간을 의미함.
+            2. 공통 데이터(값,함수등)를 프로토 타입에 저장해서 사용가능
+            3. 사용방법
+                1)생성자 함수 내부
+                    this._proto_.속성 = 값 또는 함수
+                2)생성자 함수 외부
+                    함수명.prototype.속성 = 값 또는 함수
+        */
+        //  생성자 함수의 내부에 구현
+        function Korean(name){
+            this.name = name;
+            this.__proto__.nation = 'South Korea';
+            this.__proto__.capital = 'Seoul';
+            this.__proto__.slogan = function(){
+                console.log("빨리빨리");
+            }
+        }
+        let person1 = new Korean("길동");
+        let person2 = new Korean("몽룡");
+        console.log(person1);
+        console.log(person2);
+        person1.slogan();
+        person2.slogan();
+        //  생성자 함수의 외부에 구현
+        function American(name){
+            this.name = name;
+        }
+        American.prototype.nation = "United state";
+        American.prototype.capital = "Washington DC";
+        American.prototype.slogan= function(){
+            console.log("잘모름");
+        }
+        let person3 = new American("Tom");
+        let person4 = new American("Jane");
+        console.log(person3);
+        console.log(person4);
+        person3.slogan();
+        person4.slogan();
+    </script>
+    <script>
+        let now = new Date(); // 현재일시
+        // 오늘의 요일을 출력하기
+        let weekName =["일","월","화","수","목","금","토"];
+        console.log(weekName[now.getDay()]+"요일");
+        // Date 객체의 prototype 에 getWeekNames() 함수를 등록하기
+        Date.prototype.getWeekName = function () {
+            let weekName =["일","월","화","수","목","금","토"];
+            return weekName[this.getDay()];
+        }
+        console.log("prototype : ",now.getWeekName()+"요일");
+    </script>
+</body>
+</html>
