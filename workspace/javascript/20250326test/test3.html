@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- webapp/20230327/exam1.html 
+  이미지 잡기 게임 구현하기
+  사과이미지(apple.gif)를 클릭하면 딸기 이미지(strawberry.gif)로 변경 하고 멈추도록 
+  프로그램 작성
+  이미지의 크기는 가로세로 35px 로 지정한다.-->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이미지 잡기 게임</title>
+</head>
+<body>
+  <script type="text/javascript">
+    function nextRandomInteger(limit) {
+      return Math.round(Math.random() * limit);
+    }
+    function randomSpeed(maxSpeed) {
+      return (Math.random() * maxSpeed) - (Math.random() * maxSpeed);
+    }
+    let canvasWidth = 700;
+    let canvasHeight = 500;
+    let total = 10;
+    function MovingText() {
+      this.x = nextRandomInteger(canvasWidth);
+      this.y = nextRandomInteger(canvasHeight);
+      this.vX = randomSpeed(2);
+      this.vY = randomSpeed(2);
+      this.isStopped = false; 
+      this.body = document.createElement("div");
+      this.body.innerHTML = `<img src="img/apple.gif" width="35" height="35" />`;
+      this.body.style.position = "absolute"; 
+      document.body.appendChild(this.body);
+      this.body.onclick = () => {
+        if (!this.isStopped) {
+          --total;
+          alert("남은 문자수 : " + total);
+          this.body.innerHTML = `<img src="img/strawberry.gif" width="35" height="35" />`;
+          this.isStopped = true;
+        }
+      };
+    }
+
+    MovingText.prototype.move = function () {
+      if (this.isStopped) return;
+
+      if (this.x < 0 || this.x > canvasWidth) {
+        this.vX *= -1;
+      }
+      if (this.y < 0 || this.y > canvasHeight) {
+        this.vY *= -1;
+      }
+      this.x += this.vX;
+      this.y += this.vY;
+      this.body.style.left = this.x + "px";
+      this.body.style.top = this.y + "px";
+    };
+    window.onload = function () {
+      let movingTexts = [];
+      for (let i = 0; i < 10; i++) {
+        movingTexts.push(new MovingText());
+      }
+      let game = setInterval(function () {
+        for (let i in movingTexts) {
+          if (total < 4) {
+            alert("게임 종료");
+            clearInterval(game); 
+            return;
+          }
+          movingTexts[i].move(); 
+        }
+      }, 1000 / 60); 
+    };
+  </script>
+</body>
+</html>
