@@ -25,15 +25,15 @@
 	<script>
     	function arrayTest(){
             
-            const la1 = document.getElementById("la1").innerHTML.split(",");
+            const la1 = document.getElementById("la1").innerHTML.split(","); // 배열
             const la2 = document.getElementById("la2").innerHTML.split(",");
             const la3 = document.getElementById("la3").innerHTML.split(",");
             const la4 = document.getElementById("la4").innerHTML.split(",");
             
-            const arr = la1.concat(la2,la3,la4);
+            const arr = la1.concat(la2,la3,la4); // 배열 연결하여 하나의 배열로 생성
             
-            const text = document.getElementById("text").value;
-            const index = arr.indexOf(text);
+            const text = document.getElementById("text").value; // 입력받은 데이터
+            const index = arr.indexOf(text);   //배열에서 문장열의 위치 리턴
             
             if(index >= 0){
                 alert(text + "는 배열 index " + index + "번에 존재합니다." );

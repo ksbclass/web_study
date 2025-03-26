@@ -22,11 +22,12 @@
 
 	<script>
 
-		const data = new Array(); // 전역변수로 빈 배열 선언해두고
+		// const data = new Array(); // 전역변수로 빈 배열 선언해두고
+		const data = []; // 전역변수로 빈 배열 선언해두고
     	
     	function input(){
         	const strInput = document.getElementById("strInput");
-        	data.push(strInput.value);
+        	data.push(strInput.value); // 배열의 뒤쪽에 요소 추가
         	strInput.value="";
     	}   
     	
