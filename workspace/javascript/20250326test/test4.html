@@ -104,14 +104,12 @@
         function test4(){
             const i = document.querySelector("input[name='img']").value;
             const html=document.querySelector(".img-container");
-            if(html.innerHTML.trim() !=="" ){
-                html.innerHTML ="";
-                let img = document.createElement("img");
-                img.src=i;
-                img.width=200;
-                img.height=200;
-                html.appendChild(img);
-            }
+            html.innerHTML = "";
+            let img = document.createElement("img");
+            img.src = i;
+            img.width = 200;
+            img.height = 200;
+            html.appendChild(img);
         }
     </script>
     <hr>
@@ -132,7 +130,19 @@
     <button onclick="test5();">확인하기</button>
     <div id="checkStr"></div>
     <script>
-
+ function test5() {
+        const elements = document.querySelectorAll(".data-container p, .data-container h3, .data-container h4, .data-container span, .data-container h2");
+        const output = document.getElementById("checkStr");
+        output.innerHTML = ''; 
+        for (let i = 0; i < elements.length; i++) {
+            const text = elements[i].textContent.trim();
+            if (text.length >= 3) {
+                const p = document.createElement("p");
+                p.textContent = text;
+                output.appendChild(p);
+            }
+        }
+    }
     </script>
 </body>
 </html>
