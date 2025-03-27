@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>
+        1. 출력하기 버튼 클릭시 아래의 객체배열로 저장된 데이터를 div#data-table영역안에 table 요소를 만들어서 출력하시오.<br>
+        [{no:1,title:"첫번째",writer:"유저1",enrolldate:오늘날짜} <br>
+         {no:2,title:"두번째",writer:"유저2",enrolldate:오늘날짜} <br>
+         {no:3,title:"세번째",writer:"유저3",enrolldate:오늘날짜} <br>
+         {no:4,title:"네번째",writer:"유저4",enrolldate:오늘날짜}] <br>
+        * 이때 위의 객체배열을 전역변수로 만들어 둘 것 *
+    </h2>
+    <button onclick="test1();">출력하기</button>
+    <div id="data-table"></div>
+<hr>
+    <h2>
+       2. 아래의 input태그들을 이용해서 사용자로부터 글번호, 제목, 작성자명, 작성일을 입력받고 <br>
+          추가 버튼 클릭시 위 10번 문제에서 세팅해둔 전역 객체배열에 추가한 후 table에도 한 행 추가 되는 기능을 구현하시오. <br>
+          (테스트시 1번 실행 후 2번 실행하기)
+    </h2>
+
+    글번호 : <input type="number" id="boardNo"> <br>
+    제목 : <input type="text" id="boardTitle"> <br>
+    작성자 : <input type="text" id="boardWriter"> <br>
+    작성일 : <input type="date" id="boardDate"> <br>
+
+    <button onclick="test2();">추가</button>
+
+<script>
+    const today = new Date();
+    const arr =  [
+    {no:1,title:"첫번째",writer:"유저1",enrolldate:today},
+    {no:2,title:"두번째",writer:"유저2",enrolldate:today}, 
+    {no:3,title:"세번째",writer:"유저3",enrolldate:today}, 
+    {no:4,title:"네번째",writer:"유저4",enrolldate:today}] ;
+    function test1(){
+        const div = document.getElementById("data-table");
+        div.innerHTML ="";
+        const table = document.createElement("table");
+        table.border ="1";
+        for(let i =0; i < arr.length; i++){
+            const row = document.createElement("tr");
+            const item = arr[i];
+            const t1 = document.createElement("td");
+            t1.textContent = item.no;
+            row.appendChild(t1);
+            const t2 = document.createElement("td");
+            t2.textContent = item.title;
+            row.appendChild(t2);
+            const t3 = document.createElement("td");
+            t3.textContent = item.writer;
+            row.appendChild(t3);
+            const t4 = document.createElement("td");
+            t4.textContent = item.enrolldate;
+            row.appendChild(t4);
+            table.appendChild(row);
+        }
+        div.appendChild(table);
+    }
+    function test2(){
+        const  no = document.getElementById("boardNo").value;
+        const title = document.getElementById("boardTitle").value;
+        const writer = document.getElementById("boardWriter").value;
+        const date = document.getElementById("boardDate").value;
+        const newdate ={
+            no : Number(no),
+            title,
+            writer,
+            enrolldate : new Date(date)
+        }
+        arr.push(newdate);
+        test1();
+    }
+</script>
+
+</body>
+</html>

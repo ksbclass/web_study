@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>
+        추가 버튼 클릭시마다 input[type=text]인 요소가 div.input-container에 추가될수 있도록 구현하시오.
+        단, 최대 10개까지만 추가될 수 있도록 하시오. (10개를 초과하려는 순간 "10개까지만 추가 가능합니다."와 같은 알람창 출력)
+    </h2>
+    <button onclick="test()">추가</button>
+    <div class="input-container"></div>
+    <script>
+        function test(){
+            const a = document.querySelector(".input-container");
+            const b = document.querySelectorAll("input[type=text]");
+            if(b.length>= 10){
+                alert("10개까지만 추가 가능합니다.");
+                return;
+            }
+            const i = document.createElement("input");
+            i.type="text";
+            a.appendChild(i);
+            
+        }
+    </script>
+</body>
+</html>
