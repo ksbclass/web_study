@@ -47,6 +47,12 @@
                 document.getElementById("test1").innerHTML = "메시지가 입력되지 않았습니다.";
             }
         }
+        // if(m) : 값이 존재하면 :true, 값이 없으면 : false
+    //     if(!m){
+    //         m= "메시지가 입력되지 않았습니다.";
+    //     }
+    //     document.querySelector("div#test1").innerHTML=m;
+    // }
     </script>
 
     <hr>
@@ -59,10 +65,9 @@
     <button onclick="test2();">실행</button>
     <div id="test2"></div>
     <script>
-        function test2(){
-            const a = confirm("개인정보활용에 동의하시겠습니까?");
-            const b = a ? "당신의 개인정보가 유출되었습니다" : "당신의 개인정보 유출을 막았습니다";
-            document.getElementById("test2").innerHTML = b;
+        function test2(){  
+            const msg = confirm("개인정보활용에 동의하시겠습니까?") ? "당신의 개인정보가 유출되었습니다" : "당신의 개인정보 유출을 막았습니다";
+            document.getElementById("test2").innerHTML = msg;
         }
     </script>
     <hr>
@@ -79,10 +84,10 @@
     function test3(){
         let nums =[];
         for(let i =1;i<=10;i++){
-            nums.push(Math.round(Math.random()*100)+1);
+            nums.push(Math.round(Math.random()*100)-1); // 10개의 임의의 정수값 배열에 저장
         }
         nums.sort((a,b)=>b-a);
-        let list = document.querySelector("#test3");
+        let list = document.querySelector("div#test3>ul");
         list.innerHTML="";
         for(let i =0; i<nums.length; i++){
             let li = document.createElement("li");
@@ -102,14 +107,19 @@
     <div class="img-container"></div>
     <script>
         function test4(){
-            const i = document.querySelector("input[name='img']").value;
-            const html=document.querySelector(".img-container");
-            html.innerHTML = "";
-            let img = document.createElement("img");
-            img.src = i;
-            img.width = 200;
-            img.height = 200;
-            html.appendChild(img);
+            // const i = document.querySelector("input[name='img']").value;
+            // const html=document.querySelector(".img-container");
+            // html.innerHTML = "";
+            // let img = document.createElement("img");
+            // img.src = i;
+            // html.appendChild(img);
+            const imgEl = document.createElement("img");
+            imgEl.src =document.getElementsByName("img")[0].value;
+            imgEl.width = 200;
+            imgEl.height = 200;
+            // 부모태그요소.appendChild (자식태그 요소) : 
+            // class = "img-container" 첫번째태그에 하위태그로 imgEl태그 추가
+            document.getElementsByClassName("img-container")[0].appendChild(imgEl);
         }
     </script>
     <hr>
@@ -130,15 +140,20 @@
     <button onclick="test5();">확인하기</button>
     <div id="checkStr"></div>
     <script>
- function test5() {
-        const elements = document.querySelectorAll(".data-container p, .data-container h3, .data-container h4, .data-container span, .data-container h2");
-        const output = document.getElementById("checkStr");
+    function test5() {
+        //.data-container>* : clss='data-container>' 태그의 모든 자식태그
+        const elements = document.querySelectorAll(".data-container>*"); // 배열로 리턴
+        const output = document.getElementById("checkStr"); // 결과 출력영역
         output.innerHTML = ''; 
         for (let i = 0; i < elements.length; i++) {
             const text = elements[i].textContent.trim();
             if (text.length >= 3) {
                 const p = document.createElement("p");
                 p.textContent = text;
+                // 요소복제 메서드 - 복제할 요소객체.cloneNode(논리값) : 복제된 요소 객체
+                //                   이때 논리값으로 false 제시시 elementNode만 복제
+                                                    //true 제시시 elementNode 와 textNode 모두 복제
+                let copy = data[i].cloneNode(true);
                 output.appendChild(p);
             }
         }

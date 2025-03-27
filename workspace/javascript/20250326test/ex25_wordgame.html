@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타자연습</title>
+    <style type="text/css">
+        div{position: absolute;}
+        #main{width: 450px; height: 400px;
+            border: 1px solid blue; overflow: hidden;}
+        input {
+            position: absolute;top: 410px;
+            left: 10px; size: 200px;
+        }
+        #scorearea { 
+            position: absolute; top: 410px;
+            left: 210px; 
+            border: 1px solid #333333; 
+            width: 200px; height: 20px;
+        }
+        #score {
+            position: relative; left: 30px;
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div> <!-- 단어 표시되는 영역-->
+    <div style="width: 400px;">
+        <!--
+        단어 입력영역 onchange : value 값이 변경 될때 발생되는 이벤트
+        this.value : 입력된 값
+        -->
+        <input type="text" onchange="deleteMode(this.value)" id="input">
+        <div id="scorearea">점수:
+            <div id="score"></div>
+        </div>
+    </div>
+    <script>
+        // 2차원 배열
+        let datas =[
+            ["태연","유리","윤아","효연","수영","서현","티파니","써니","제시카"],
+            ["정국","뷔","지민","슈가","진","알엠","제이홈"],
+            ["미나","나연","다현","지효","모모","채영","쯔위","사나","정연"]
+        ]
+        let cnt = 0;
+        let words = []; // 화면에 출력되는 단어 배열
+        // 글자색상 랜덤하게 설정
+        let colors = ['red','blue','green','grey','orange','black','pink']
+        let canvasHeight =400;
+        let canvasWidth = 400;
+        window.onload=function() {
+            cm = setInterval(creatMode,2000); // 2초에 한번씩데이터 추가
+            mm = setInterval(moveMode,500); // 0.5초 단위로 단어가 이동함
+        }
+        function MovingChar() { // 생성자
+            this.h3 = document.createElement('h3');
+            this.h3.innerHTML = randomData(); // datas 배열에서 임의로 한개 단어 리턴
+            this.x = random(canvasWidth); // 0 ~ canvasWidth 사이의 임의 값 리턴,가로 위치 설정.
+            this.y = 0;                   // 0부터 시작. 위쪽 부터 시작
+            this.vY = 10;                 // 떨어지는 간격.단어 이동 간격
+            this.h3.style.position = 'absolute';
+            this.h3.style.left = this.x +'px';
+            this.h3.style.color=colors[random(colors.length)]; // 글자의 색상 선택
+            document.querySelector("#main").appendChild(this.h3);
+        }
+        MovingChar.prototype.move = function() {
+            if((this.x+this.h3.innerHTML.length)>canvasWidth) {
+                this.x = canvasWidth - (this.h3.innerHTML.length+1); // 가로의 위치 보정
+            }
+            this.y +=this.vY; // 세로 부분 이동
+            this.h3.style.top = this.y +'px';
+        };
+        MovingChar.prototype.remove = function () {
+            // removeChild : 태그 제거
+            document.querySelector("#main").removeChild(this.h3);
+        };
+        // 시작해서 바로 2초에 한번씩 실행되는 함수
+        function creatMode() {
+            words.push(new MovingChar());
+        }
+        // 시작해서 바로 0.5초에 한번씩 실행되는 함수
+        function moveMode() {
+            for(let i in words) {
+                words[i].move();
+                if(words[i].y >=canvasHeight-30){ // 바닦에 단어가 닿음.게임 종료 상태
+                    document.querySelector("#main").removeChild(words[i].h3); // #main 영역에서 제거.메모리에는 존재
+                    delete (words[i]); // words[i] : MovingChar 객체를 메모리에서 삭제
+                    clearInterval(cm); // setInterval 취소. 종료
+                    clearInterval(mm); // setInterval 취소. 종료
+                    for(let j in words) {
+                        words[j].h3.style.color = "gray"; // 게임 종료시 글자의 색을 회색으로 변경
+                    }
+                    alert("게임종료")
+                }
+            }
+        }
+        function random(num) {
+            let num1 = Math.random() * num; 
+            num1 =parseInt(num1); // 0 ~ num1 -1 사이의 임의의 값 리턴
+            return num1;
+        }
+        function randomData() {
+            let num1 = Math.random()*3;
+            num1 =parseInt(num1); // 0~2 사이의 임의 값. 소녀시대,bts,트와이스 선택
+            let num2 = Math.random()*datas[num1].length;
+            num2 = parseInt(num2); // 선택된 단어의 인덱스 저장
+            return datas[num1][num2]// 단어 리턴
+        }
+        // input 데이터 value 값이 변경되는 경우 호출되는 함수
+        function deleteMode(str) { // str : 입력된값
+            for(let i in words) {
+                words[i].move();
+                if(words[i].h3.innerHTML == str) {
+                    document.querySelector("#main").removeChild(words[i].h3);
+                    delete (words[i])
+                    document.querySelector("#score").innerHTML = ++cnt; //점수 등록
+                }
+            }
+            document.querySelector("#input").value = ""; // 입력내용제거
+            document.querySelector("#input").focus();//입력부분에 포커스 이동
+        }
+    </script>
+</body>
+</html>

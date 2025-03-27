@@ -11,13 +11,14 @@
 <script type="text/javascript">
 let kim = new Person("김삿갓","kimsg.tistory.com");
 let lee = new Person("이몽룡","leemy.tistory.com");
-function Person(name,blog){
-   this.name = name;
-   this.blog =blog;
+function Person(name,blog){ // 생성자 
+   this.name = name; // 멤버변수 : name
+   this.blog =blog; // 멤버변수 : blog
+   this.getName =function(){
+      return this.name;
+   }
 }
-Person.prototype.getName= function() {
-   return this.name;
-}
+// 외부 지정방식
 Person.prototype.getBlog= function() {
    return this.blog;
 }

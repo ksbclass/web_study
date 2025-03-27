@@ -6,8 +6,9 @@
 </head>
 <body>
 <script type="text/javascript">
-    Array.prototype.contain = function(e){
-        return this.indexOf(e) !== -1;
+    // 외부 지정방식으로 함수 설정
+    Array.prototype.contain = function(data){
+        return this.indexOf(data) >=0;
     }
     const a = [273,32,103,57,52]
     document.write("273 in [273,32,103,57,52] : "+a.contain(273) + "<br>") //true
