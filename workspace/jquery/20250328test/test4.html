@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	div {
+		border: 1px solid red;
+		height: 150px;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+	
+	<h1>기본 문법 문제</h1>
+
+	문제1. 다음 보기에 있는 텍스트 필드에 작성한 문자열의 길이를 알아올 수 있도록 구현하시오
+	
+	<fieldset>
+    	<legend>보기</legend>
+    	<input type="text" placeholder="글자를 작성해보세요" size="100" id="text1">
+	</fieldset>
+	<br>
+
+	<div id="result1"></div>
+	<button onclick="stringLength();"> 확인하기</button>
+	
+	<br><br>
+
+	문제2. 다음 보기에 있는 문자열을 ,(콤마) 를 기준으로 잘라내어 하나하나 출력하시오 
+	<fieldset>
+    	<legend>보기</legend>
+      	<label id="la1">콜라,사이다,햄버거,피자,한약</label>
+	</fieldset>
+	<br>
+
+	<div id="result2"> </div>
+	<button onclick="stringSplit();"> 확인하기</button>
+	
+	<script>
+		$(function(){
+			$("button").eq(0).click(function() {
+				let text = $("#text1").val();
+				$("#result1").html("보기의 문자열의 길이는 " +text.length+"글자입니다.");
+			})
+			$("button").eq(1).click(function() {
+				let text = $("#la1").text().split(",");
+				let html = "<ul>";
+				for(let i = 0; i<text.length;i++){
+					html += "<li>"+text[i]+"</li>";
+				}
+				html +="</ul>"
+				$("#result2").html(html);
+			})
+		})
+		
+	</script>
+</body>
+</html>

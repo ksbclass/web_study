@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bg{background-color: purple}
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h3>* 자손선택자(>)와 후손선택자( )</h3>
+    <div style="border: 1px solid black;">
+        <ul>자손1
+            <li>div의 후손이면서 ul의 자손1</li>
+            <li>div의 후손이면서 ul의 자손2</li>
+            <li class="ch">div의 후손이면서 ul의 자손3</li>
+            <li class="ch">div의 후손이면서 ul의 자손4</li>
+            <li>
+                <h3>div/ul의 후손이면서 li의 자손</h3> <!--글자색 빨강, 배경색 pink-->
+            </li>
+        </ul>
+        <h3>자손2</h3>
+        <h3 class="ch">자손3 </h3>
+    </div>
+    <script>
+        $(function() {
+            // div > h3 태그의 글자색을 lightblue, 배경색 : violet 변경하기
+            // $("div>h3").css("color","lightblue");
+            // $("div>h3").css("backgroundColor","violet");
+            $("div>h3").css({backgroundColor:"violet",color : "lightblue"});
+            $("li>h3").css({backgroundColor : "pink",color : "red"});
+            // li 태그중 class = ch 인 태그의 배경색을 yellow로 변경하기
+            $("li.ch").css({backgroundColor: "yellow"});
+            // div 태그의 후손태그 중 h3 태그의 글자 색:blue로 변경하기
+            $("div h3").css({color : "blue"});
+        });
+    </script>
+    <hr>
+
+    <h3> *속성 선택자</h3>
+    <p>
+        선택자[속성] : 해당 속성을 가지고 있는 모든 요소 선택<br>
+        선택자[속성=특정값] : 속성값이 특정값과 "일치"하는 모든 요소 선택<br>
+        선택자[속성~= 특정값] : 속성값이 특정값을 "단어로써 포함"하고 있는 요소 선택<br>
+        선택자[속성*= 특정값] : 속성값이 특정값을 "포함"하고 있는 요소 선택<br>
+        선택자[속성^= 특정값] : 속성값이 특정값으로 "시작"하는  요소 선택<br>
+        선택자[속성$= 특정값] : 속성값이 특정값으로 "끝"나는  요소 선택
+    </p>
+
+    <input type="text"><br>
+    <input type="number" class="test test1"><br>
+    <input type="radio"><br>
+    <input type="checkbox"><br>
+    <input type="button" value="button" class="test2">  
+    <script>
+        $(function() {
+/*
+            // input 태그에 class 속성을 가진 태그
+            $("input[class]").css({backgroundColor : "red"});
+            // input 태그에 type 속성의 값이 text 인 태그
+            $("input[type=text]").val("ㅋㅋㅋㅋ"); // value 속성과 관련된 함수 태그.value = "ㅋㅋㅋ"
+            // input 태그에 class 속성 중 test인 속성값을 가지고 있는 태그
+            $("input[class~=test]").attr("value","1234");
+            // input 태그에 class 속성의 값이 st2를 속성값을 포함하고 있는 태그
+            $("input[class*=st2]").val("왕버튼").css({width :"100px",height: "100px"});
+            // input 태그에 type 속성의 값이 ra로 시작하는 태그
+            // attr() : setAttribute 함수의 기능을 수행.
+            // attr(속성명,속성값)
+            $("input[type^=ra]").attr("checked",true);
+            // input 태그에 type 속성의 값이 box로 끝나는 태그
+            $("input[type$=box]").attr("checked",true);
+*/
+        })
+    </script>
+    <hr>
+    <h3>*입력양식 선택자(input태그의 type 속성에 따라서 요소 선택)</h3>
+    텍스트 상자 : <input type="text"><br>
+    일반버튼 : <input type="button"><br>
+    체크박스 : <input type="checkbox"><br>
+    첨부파일 : <input type="file"><br>
+    비밀번호 : <input type="password"><br>
+    라디오버튼 : <input type="radio"><br>
+    초기화 버튼 :<input type="reset"><br>
+    제출 버튼: <input type="submit">
+    <script>
+        $(function() {
+            /*
+            $(":text").css({backgroundColor : "red"});
+            //type=button 인 태그를 왕버튼으로 변경하기
+            $(":button").val("왕버튼").css({width:"100px",height:"50px"});
+            //type=checkbox 인 태그를 선택된 상태로 변경하기
+            $(":checkbox").attr("checked","true");
+            // type = file 인 태그의 배경색을 연두색으로 변경하기
+            $(":file").css({backgroundColor :"yellowgreen"});
+            // type = password 인 태그의 배경색을 노랑색으로 변경하기
+            $(":password").css({backgroundColor :"yellow"});
+            // type = radio 인 태그의 크기를 50px,50px로 변경하고 체크된 상태로 변경하기
+            $(":radio").attr("checked","true").css({width:"50px",height:"50px"});
+            // type = reset 인 태그의 배경색은 파란색,글자색 흰색,테두리 없이 ,문구 취소로 변경하기
+            $(":reset").css({backgroundColor:"blue",color:"white",border : "none"}).val("취소")
+            // type = submit 태그를 클릭시 안녕 문자열을 확인창으로 보여주기
+            $(":submit").click(function() {
+                // alert("안녕");
+                // 비밀번호에 입력된 값을 확인창으로 보여주기
+                // val() : value 속성과 관련된 함수
+                // val() : value 속성의 값을 리턴.태그.value 리턴
+                // val(값1) : value 속성값에 값1을 저장.태그.value= 값1
+                // alert($(":password").val());
+                // type = text에 입력된 값을 확인창으로 보여주기
+                // alert($(":text").val()); // input type="text"인 태그 첫번째 태그의 값
+                alert($(":text").eq(0).val()); // input type="text"인 태그 첫번째 태그의 값
+                alert($(":text").eq(1).val()); // input type="text"인 태그 두번째 태그의 값
+            });
+            // submit 태그의 마우스 커서가 들어온 경우 배경색을 purple 로 변경하기
+            // $(":submit").mouseenter(function() {
+            //     // $(this).css({backgroundColor : "purple"});
+            //     // 클래스 속성 추가하기
+            //     $(this).addClass("bg"); //document.get...().className="bg"
+            // })
+            // // submit 태그의 마우스 커서가 나간 경우 배경색을 변경을 취소하기
+            // $(":submit").mouseout(function() {
+            //     //$(this).css({backgroundColor : ""});
+            //     $(this).removeClass("bg");//document.get...().className=""
+            // })
+            // hover : mouseenter+mouseout 함께 구현가능
+            $(":submit").hover(function() { //mouseenter 이벤트 발생시 호출됨.
+                $(this).addClass("bg");
+            },
+            function() { //mouseout 이벤트 발생시 호출됨.
+                $(this).removeClass("bg"); 
+            })
+                
+            */
+            // 자바스크립트의 화살표 함수 구현 : this (window). 화살표 함수에서는 this 값을 사용 못함
+            // function()으로 구현 가능. 화살표 함수로도 구현 가능(this 값을 사용 못함) 
+           $(":submit").hover((e)=> { //mouseenter 이벤트 발생시 호출됨.
+                // e: event 객체.
+                // $(this).addClass("bg"); // this 변수 사용불가
+                $(e.currentTarget).addClass("bg");
+                // alert("enter"); // 가능
+            },
+            (e) => { //mouseout 이벤트 발생시 호출됨.
+                // $(this).removeClass("bg"); // this 변수 사용불가
+                $(e.currentTarget).removeClass("bg");
+                // alert("out");
+            })
+        });
+    </script>
+</body>
+</html>

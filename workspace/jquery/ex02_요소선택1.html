@@ -7,6 +7,64 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-    
+    <h1>선택지를 이용한 요소 선택</h1>
+    <h3>* 아이디 선택자</h3>
+    <p>고유한 아이디값을 가진 요소 "하나만"을 선택하고자 할때</p>
+    <h1 id="id1">테스트1</h1> <!--순수자바스크립트 방식-->
+    <h1 id="id2">테스트2</h1> <!--jQuery방식-->
+    <script>
+        $(function(){
+            document.getElementById("id1").style.color = "red";
+            document.querySelector("#id1").innerHTML = "h1변경";
+
+            $("#id2").css("color","yellow");
+            $("#id2").html("h1변경"); // innerHTML 과 관련된 기능을 수행하는 함수
+            console.log(document.getElementById("id1"));
+            console.log($("#id2"));
+        })
+    </script>
+    <hr>
+    <h3>* 태그 선택자</h3>
+    <p>Java</p><p>MariaDB</p> <p>HTML</p><!--자바스크립트 이용-->
+    <h5>CSS</h5><h5>JavaScript</h5> <h5>jQuery</h5><!--jQuery 이용-->
+    <script>
+        $(function() {
+            //getElementsByTagName("태그명") : 배열
+            const p = document.getElementsByTagName("p");
+            // p 태그들의 글자색을 pink로 변경
+            for(let i = 0; i<p.length; i++) {
+                p[i].style.color="pink";
+            }
+            // jQuery 방식 : $("태그명")
+            $("h5").css("color","blue"); // h5 태그들의 글자색을 blue 변경
+            // $(선택자) : p또는h5또는#id1 태그의 배경색을 yellow로 변경
+            $("p,h5,#id1").css("backgroundColor","yellow");
+        })
+    </script>
+    <hr>
+    <h3>* 클래스 선택자</h3>
+    <p>특정 클래스 속성을 가진 요소들 선택하고자 할 때 사용</p>
+    <h1 class="item">Class1</h1>
+    <h1 class="item select">Class2</h1>
+    <h1 class="item select">Class3</h1>
+    <script>
+        $(function(){
+            // 자바스크립트 방식
+            // getElementsByClassName(class속성값) : 배열로 리턴
+            // item : class 속성의 값이 item인 태그들. 배열객체임.[h1 h1 h1]
+            const item = document.getElementsByClassName("item");
+            for(let i=0; i<item.length; i++) {
+                item[i].style.color = "orange";
+                item[i].onclick = function(){
+                    console.log("클릭됨");
+                }
+            }
+            // jQuery 방식 => $(".class속성값")
+            $(".select").css("backgroundColor","pink");
+            $(".select").click(function() {
+                alert("클릭됨");
+            })
+        })
+    </script>
 </body>
 </html>
