@@ -71,44 +71,47 @@
             <th><input type="button" value="+"></th>
         </tr>
     </table>
+
     <script>
-        // 버튼 클릭 이벤트를 동적으로 추가
-        window.onload = function() {
-            var buttons = document.querySelectorAll("#calculator input[type='button']");
-            var result = document.getElementById("result");
+        window.onload = function(){
+        
+            const btnList = document.querySelectorAll("#calculator input[type=button]");
+            for(let i=0; i<btnList.length; i++){
+                btnList[i].onclick = btnClick; // 모든 버튼 요소들에게 클릭이벤트 발생시 하단에 정의해둔 btnClick함수가 실행되도록
+            }
 
-            // 각 버튼에 클릭 이벤트 리스너를 추가
-            buttons.forEach(function(button) {
-                button.addEventListener("click", function() {
-                    var value = button.value;
+            // 추가 : 텍스트상자에 직접 내용 입력후 엔터키 입력하는 순간에도 = 버튼 클릭과 같은 효과가 진행되도록
+            document.getElementById("result").onkeyup = function(e){
+                if(e.keyCode == 13){ // 엔터키를 눌렀을 경우
+                    document.querySelector("#calculator input[value='=']").click(); // = 버튼 강제로 클릭되도록
+                    // 특정요소객체.click() => 해당 요소객체에 강제로 click이벤트를 발생시키는 구문
+                }
+            }
+        }
+        
+        // 버튼 클릭시 실행될 함수
+        function btnClick(){
 
-                    // AC 버튼 클릭 시 화면 초기화
-                    if (value === "AC") {
-                        result.value = "0";
-                    }
-                    // = 버튼 클릭 시 계산
-                    else if (value === "=") {
-                        try {
-                            result.value = eval(result.value);
-                        } catch (e) {
-                            result.value = "Error";
-                        }
-                    }
-                    // 그 외 숫자 및 연산자 버튼 클릭 시 값 추가
-                    else {
-                        if (result.value === "0" || isNaN(result.value)) {
-                            result.value = value;
-                        } else {
-                            result.value += value;
-                        }
-                    }
-                });
-            });
-        };
+            // 현재 클릭이벤트가 발생한 버튼의 value값
+            let btnVal = window.event.target.value;
+            // window.event.target => 클릭이벤트가 발생된 input[type="button"] 요소객체
+
+            const resultInput = document.getElementById("result"); 
+
+            if(btnVal == "AC"){
+                resultInput.value = 0;
+            }else if(btnVal == "="){
+                resultInput.value = eval(resultInput.value);
+            }else{
+                if(resultInput.value == 0){
+                    resultInput.value = btnVal;
+                }else{
+                    resultInput.value += btnVal; 
+                }
+            }
+
+        }
     </script>
-
-</body>
-</html>
 
 </body>
 </html>
