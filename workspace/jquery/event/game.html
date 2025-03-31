@@ -1,455 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>테트리스</title>
-    <style>
-        body {
-            background-color: darkblue; 
-        }
-        td{
-            width: 14px;
-            height: 14px;
-        }
-        #gameField {
-            margin-left: 20px;
-            margin-top: 20px;
-            float: left;
-        }
-        #scoreField{
-            float: right;
-            background-color: midnightblue;
-            margin-top: 1.9px;
-            margin-left: 3px;
-            width: 100px;
-        }
-        #score, #level {
-            font-size: 28px;
-            text-align: center;
-            font-weight: bold;
-            color: white;
-            height: 30px;
-        }
-        .sub{
-            font-size: 22px;
-            text-align: center;
-            font-weight: bold;
-            color: white;
-            background-color: midnightblue;
-            padding: 10px;
-            margin: 0px;
-        }
-        #about{
-            font-size: 20px;
-        }   
-        #about:hover{
-        color:darkred;
-        }
-        #nextTable{
-        float: right;
-        margin: 0px;
-        position: absolute;
-        left: 402px;
-        top: 358px;
-        }
-        #help{
-        font-size: 18px;
-        text-align: center;
-        font-weight: bold;
-        color: white;
-        height: 32px;
-        margin: 1px;
-        }
-        #comboField{
-        position: absolute;
-        left: 27px;
-        top: 320px;
-        width: 384px;
-        text-align: center;
-        font-size: 22px;
-        font-weight: bold;
-        color: white;
-        }
-        #pause, #gameover{
-        position: absolute;
-        left: 200px;
-        top: 200px;
-        visibility: hidden;
-        color: white;
-        }
-    </style>
-</head>
-<body>
-    <div id="gameField">
-        <div id="gameover">
-            <center>
-                <h1>Game Over</h1>
-                <h4>press 'F5' to restart</h4>
-            </center>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Tetris</title>
+        <style>
+            body {
+                background-color: rgb(9,17,26);
+            }
+            td {
+                width: 14px;
+                height: 14px;
+            }
+            #gameField {
+                margin-left: 20px;
+                margin-top: 20px;
+                float: left;
+            }
+            #scoreField {
+                float: right;
+                background-color: rgb(14,31,49);
+                margin-top: 1.9px;
+                margin-left: 3px;
+                width: 100px;
+            }
+            #score {
+                font-size: 28px;
+                text-align: center;
+                font-weight: bold;
+                color: white;
+                height: 30px;
+            }
+            .sub {
+                font-size: 22px;
+                text-align: center;
+                font-weight: bold;
+                color: white;
+                background-color: rgb(21,46,74);
+                padding: 10px;
+                margin: 0px;
+            }
+            #about {
+                font-size: 20px;
+            }
+            #about:hover {
+                color: rgb(199,82,82);
+            }
+            #nextTable {
+                float: right;
+                margin: 0px;
+                position: absolute;
+                left: 402px;
+                top: 358px;
+            }
+            #help {
+                font-size: 18px;
+                text-align: center;
+                font-weight: bold;
+                color: white;
+                height: 32px;
+                margin: 1px;
+            }
+            #comboField {
+                position: absolute;
+                left: 27px;
+                top: 320px;
+                width: 384px;
+                text-align: center;
+                font-size: 22px;
+                font-weight: bold;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="gameField">
+            <div id="gameover">
+                <center>
+                    <h1>Game Over</h1>
+                    <h4>press 'F5' to restart</h4>
+                </center>
+            </div>
+            <table id="nextTable" border=0>
+                <tr><td id="00"></td><td id="01"></td><td id="02"></td><td id="03"></td></tr>
+                <tr><td id="10"></td><td id="11"></td><td id="12"></td><td id="13"></td></tr>
+                <tr><td id="20"></td><td id="21"></td><td id="22"></td><td id="23"></td></tr>
+                <tr><td id="30"></td><td id="31"></td><td id="32"></td><td id="33"></td></tr>
+            </table>
+            <div id="scoreField">
+                <p class="sub">SCORE</p>
+                <p id="score">0</p>
+                <p class="sub">NEXT</p>
+                <p><br><br><br></p>
+                <p class="sub">HELP</p>
+                <p id="help">← ↓ →</p>
+                <p id="help">Space Bar</p>
+                <p class="sub" id="about" onclick="info()">ABOUT</p>
+                <div id="comboField"><i></i></div>
+            </div>
+            <script type="text/javascript" src="game.js"></script>
         </div>
-        <div id="pause">
-            <center>
-                <h1>Pause</h1>
-                <h4>press 'F5' to resume</h4>
-            </center>
-        </div>
-        <table id="nextTable" border=0>
-            <tr><td id="00"></td><td id="01"></td><td id="02"></td><td id="03"></td></tr>
-            <tr><td id="10"></td><td id="11"></td><td id="12"></td><td id="13"></td></tr>
-            <tr><td id="20"></td><td id="21"></td><td id="22"></td><td id="23"></td></tr>
-            <tr><td id="30"></td><td id="31"></td><td id="32"></td><td id="33"></td></tr>
-        </table>
-        <div id="scoreField">
-            <p class="sub">LEVEL</p>
-            <p id="level">1</p>
-            <p class="sub">SCORE</p>
-            <p id="score">0</p>
-            <p class="sub">NEXT</p>
-            <p><br><br><br></p>
-            <p class="sub">HELP</p>
-            <p id="help">← ↓ →</p>
-            <p id="help">Space Bar</p>
-            <p id="help">P to pause</p>
-            <p class="sub" id="about" onclick="info()">ABOUT</p>
-            <div id="comboField"><i></i></div>
-        </div>
-
-    <script>
-        const height = 20; // 필드의 높이
-        const width = 10;  // 필드의 너비
-        const arr = [
-            [[2,2],[1,2],[1,1],[0,1]],
-            [[1,1],[1,0],[0,2],[0,1]],
-            [[2,1],[1,1],[1,2],[0,2]],
-            [[1,2],[1,1],[0,1],[0,0]],
-            [[1,2],[1,1],[0,2],[0,1]],
-            [[2,0],[1,1],[1,0],[0,0]],
-            [[1,1],[0,2],[0,1],[0,0]],
-            [[2,2],[1,2],[1,1],[0,2]],
-            [[1,2],[1,1],[1,0],[0,1]],
-            [[3,1],[2,1],[1,1],[0,1]],
-            [[1,3],[1,2],[1,1],[1,0]],
-            [[2,2],[2,1],[1,1],[0,1]],
-            [[1,0],[0,2],[0,1],[0,0]],
-            [[2,2],[1,2],[0,2],[0,1]],
-            [[1,2],[1,1],[1,0],[0,2]],
-            [[2,2],[2,1],[1,2],[0,2]],
-            [[2,2],[2,1],[2,0],[1,0]],
-            [[2,1],[1,1],[0,1],[0,2]],
-            [[1,2],[0,2],[0,1],[0,0]]
-            ];
-        const shapeRotateMap = [1,0,3,2,4,6,7,8,5,10,9,12,13,14,11,16,17,18,15];
-        const shapeColorArray = ["burgundy", "pale gold", "green", "lightblue", "oceanblue", "violet"];
-        const tileColor = "rgb(9,17,26)";
-        const wallColor = "rgb(22,41,63)";
-
-        let shapeColor;
-        let shapeColorIndex, nextColorIndex;
-        let movingThread, movingSpeed;
-        let fastMode = false;
-        let initSpeed = 500,
-            deltaSpeed = 40,
-            fastSpeed = 25;
-        let shapeCell = [];
-        let existField;
-        let shapePoint;
-        let createPoint = [1, Math.floor(width / 2) - 2];
-        let currentShape, nextShape;
-        let score = 0, level = 1, levelStack = 0;
-        let isPaused = false;
-
-        init();
-
-        // 키 입력 처리
-        document.onkeydown = keyDownEventHandler;
-        function keyDownEventHandler(e) {
-            switch (e.keyCode) {
-                case 37: setTimeout("moveLR(-1)", 0); break;
-                case 39: setTimeout("moveLR(1)", 0); break;
-                case 32: setTimeout("rotateShape()", 0); break;
-                case 40: moveFast(); break;
-                case 80: pause(); break;
-            }
-        }
-
-        document.onkeyup = keyUpEventHandler;
-        function keyUpEventHandler(e) {
-            if (e.keyCode == 40) moveSlow();
-        }
-
-        // 초기 설정
-        function init() {
-            drawField();
-            initExistField();
-            setWall();
-            nextColorIndex = -1;
-            movingSpeed = initSpeed;
-            shapePoint = [1, 1];
-            chooseNextShape();
-            chooseNextColor();
-            createShape();
-        }
-
-        function gebi(y, x) {
-            return document.getElementById(`${y} ${x}`);
-        }
-
-        // 필드 초기화
-        function initExistField() {
-            existField = Array.from({ length: height }, () => Array(width).fill(false));
-        }
-
-        function drawField() {
-            let fieldTag = "<table id=\"gameTable\" border=0>";
-            for (let i = 0; i < height; i++) {
-                fieldTag += "<tr>";
-                for (let j = 0; j < width; j++) {
-                    fieldTag += `<td id="${i} ${j}"></td>`;
-                }
-                fieldTag += "</tr>";
-            }
-            document.write(fieldTag);
-        }
-
-        function setWall() {
-            for (let i = 0; i < height; i++) {
-                gebi(i, 0).style.background = wallColor;
-                gebi(i, width - 1).style.background = wallColor;
-                existField[i][0] = true;
-                existField[i][width - 1] = true;
-            }
-            for (let i = 0; i < width; i++) {
-                gebi(0, i).style.background = wallColor;
-                gebi(height - 1, i).style.background = wallColor;
-                existField[0][i] = true;
-                existField[height - 1][i] = true;
-            }
-        }
-
-        // 도형 생성
-        function chooseNextShape() {
-            nextShape = Math.floor(Math.random() * arr.length);
-        }
-
-        function chooseNextColor() {
-            if (++nextColorIndex === shapeColorArray.length)
-                nextColorIndex = 0;
-        }
-
-        function createShape() {
-            shapePoint = [...createPoint];
-            currentShape = nextShape;
-            currentColorIndex = nextColorIndex;
-            shapeColor = shapeColorArray[currentColorIndex];
-            const shape = arr[currentShape];
-            chooseNextShape();
-            chooseNextColor();
-            displayNextShape();
-
-            for (let i = 0; i < shape.length; i++) {
-                const sy = shapePoint[0] + shape[i][0];
-                const sx = shapePoint[1] + shape[i][1];
-                if (!isValidPoint(sy, sx)) gameOver();
-                const el = gebi(sy, sx);
-                el.style.background = shapeColor;
-                shapeCell.push([sy, sx]);
-            }
-
-            levelStack++;
-            leveling();
-            movingThread = setTimeout("moveDown()", movingSpeed);
-        }
-
-        function displayNextShape() {
-            initNextTable();
-            const shape = arr[nextShape];
-            const color = shapeColorArray[nextColorIndex];
-            for (let i = 0; i < 4; i++) {
-                const y = shape[i][0];
-                const x = shape[i][1];
-                document.getElementById(`${y}${x}`).style.background = color;
-            }
-        }
-
-        function initNextTable() {
-            for (let i = 0; i < 4; i++) {
-                for (let j = 0; j < 4; j++) {
-                    document.getElementById(`${i}${j}`).style.background = "rgb(14,31,49)";
-                }
-            }
-        }
-
-        // 도형 조작
-        function moveDown() {
-            if (!canMove(1, 0)) {
-                commitExist();
-                checkLine();
-                shapeCell = [];
-                createShape();
-                return;
-            }
-            removeShape();
-            for (let i = 0; i < shapeCell.length; i++) shapeCell[i][0]++;
-            shapePoint[0]++;
-            showShape();
-            movingThread = setTimeout("moveDown()", movingSpeed);
-        }
-
-        function rotateShape() {
-            if (!canRotate()) return;
-            removeShape();
-            shapeCell = [];
-            currentShape = shapeRotateMap[currentShape];
-            const rotatedShape = arr[currentShape];
-            for (let i = 0; i < 4; i++) {
-                const sy = shapePoint[0] + rotatedShape[i][0];
-                const sx = shapePoint[1] + rotatedShape[i][1];
-                shapeCell.push([sy, sx]);
-            }
-            showShape();
-        }
-
-        function canRotate() {
-            const tempShape = arr[shapeRotateMap[currentShape]];
-            for (let i = 0; i < 4; i++) {
-                const ty = shapePoint[0] + tempShape[i][0];
-                const tx = shapePoint[1] + tempShape[i][1];
-                if (!isValidPoint(ty, tx)) return false;
-            }
-            return true;
-        }
-
-        function isValidPoint(y, x) {
-            return !(y <= 0 || y >= height - 1 || x <= 0 || x >= width - 1 || existField[y][x]);
-        }
-
-        function removeShape() {
-            for (let i = 0; i < shapeCell.length; i++) {
-                const el = gebi(shapeCell[i][0], shapeCell[i][1]);
-                el.style.background = tileColor;
-            }
-        }
-
-        function showShape() {
-            for (let i = 0; i < shapeCell.length; i++) {
-                const el = gebi(shapeCell[i][0], shapeCell[i][1]);
-                el.style.background = shapeColor;
-            }
-        }
-
-        function canMove(dy, dx) {
-            for (let i = 0; i < shapeCell.length; i++) {
-                const ny = shapeCell[i][0] + dy;
-                const nx = shapeCell[i][1] + dx;
-                if (!isValidPoint(ny, nx)) return false;
-            }
-            return true;
-        }
-
-        function moveLR(delta) {
-            if (!canMove(0, delta) || isPaused) return;
-            removeShape();
-            for (let i = 0; i < shapeCell.length; i++) shapeCell[i][1] += delta;
-            shapePoint[1] += delta;
-            showShape();
-        }
-
-        function moveFast() {
-            if (fastMode) return;
-            clearTimeout(movingThread);
-            movingSpeed = fastSpeed;
-            movingThread = setTimeout("moveDown()", movingSpeed);
-            fastMode = true;
-        }
-
-        function moveSlow() {
-            if (!fastMode) return;
-            clearTimeout(movingThread);
-            movingSpeed = initSpeed - (level * deltaSpeed);
-            movingThread = setTimeout("moveDown()", movingSpeed);
-            fastMode = false;
-        }
-
-        // 점수 판정
-        function commitExist() {
-            for (let i = 0; i < shapeCell.length; i++) {
-                const y = shapeCell[i][0];
-                const x = shapeCell[i][1];
-                existField[y][x] = true;
-            }
-        }
-
-        function checkLine() {
-            const plusScore = level * 100;
-            let combo = 0;
-            let finalScore = 0;
-            for (let i = height - 2; i > 1; i--) {
-                if (isFull(i)) {
-                    removeLine(i);
-                    i++;
-                    finalScore += updateScore(plusScore, ++combo);
-                }
-                if (combo > 0) displayCombo(combo, finalScore);
-            }
-        }
-
-        function isFull(lineIndex) {
-            for (let i = 1; i < width - 1; i++) {
-                if (!existField[lineIndex][i]) return false;
-            }
-            return true;
-        }
-
-        function removeLine(lineIndex) {
-            for (let i = lineIndex - 1; i >= 1; i--) {
-                for (let j = 1; j < width - 1; j++) {
-                    gebi(i + 1, j).style.background = gebi(i, j).style.background;
-                    existField[i + 1][j] = existField[i][j];
-                }
-            }
-        }
-
-        function leveling() {
-            if (level === 10) return;
-            if (levelStack === level * 10) {
-                level++;
-                levelStack = 0;
-                if (!fastMode) movingSpeed = initSpeed - (level * deltaSpeed);
-            }
-            document.getElementById("level").innerHTML = level;
-        }
-
-        function updateScore(plusScore, combo) {
-            const comboScore = plusScore * combo;
-            score += comboScore;
-            document.getElementById("score").innerHTML = score;
-            return comboScore;
-        }
-
-        function displayCombo(combo, finalScore) {
-            const comboStr = `${combo} COMBO +${finalScore}`;
-            document.getElementById("comboField").innerHTML = comboStr;
-            setTimeout(() => { document.getElementById("comboField").innerHTML = ""; }, 700);
-        }
-
-        // 종료 및 일시정지
-        function gameOver() {
-            clearTimeout(movingThread);
-            alert(`Game Over! Your score: ${score}`);
-        }
-
-        function pause() {
-            if (isPaused) {
-                movingSpeed = initSpeed - (level * deltaSpeed);
-                movingThread = setTimeout("moveDown()", movingSpeed);
-                isPaused = false;
-            } else {
-                clearTimeout(movingThread);
-                isPaused = true;
-            }
-        }
-
-    </script>
-</body>
+    </body>
 </html>
