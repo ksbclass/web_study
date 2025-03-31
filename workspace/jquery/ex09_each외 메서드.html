@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        .highlight-0 {background-color: red;}
+        .highlight-1 {background-color: orange;}
+        .highlight-2 {background-color: yellow;}
+        .highlight-3 {background-color: green;}
+        .highlight-4 {background-color: blue;}
+    </style>
+</head>
+<body>
+    <h3>each 메서드</h3>
+    <p>
+        배열의 모든 인덱스 순차적으로 접근할때 사용.<br>
+        for in, forEach 구분과 비슷
+    </p>
+    <script>
+        $(function() { 
+            const arr = ["동", "서", "남", "북"];
+            // 1. for in
+            for (let i in arr) {
+                console.log(i, typeof(i));
+                console.log(arr[i]);
+            }
+            console.log("=====================")
+            // 2. forEach
+            arr.forEach((item) => console.log(item));
+            console.log("=====================")
+            // 3. each
+            $.each(arr, function(index, value) {
+                console.log(index, typeof(index)); // 첨자(인덱스)
+                console.log(value); // 요소
+            });
+            console.log("=====================")
+            // 4. each
+            $(arr).each(function(index, value) {
+                console.log(index, typeof(index)); // 첨자(인덱스)
+                console.log(value); // 요소
+            });
+            console.log("=====================")
+            // 순수 자바 스크립트 방식의 배열 객체 arr을 jQuery 객체로 변경해야
+            // each 메소드 호출 가능
+            const student = {name: "홍길동", age: 20, address: "서울"};
+            // 1. for in
+            for (let key in student) {
+                console.log(key, typeof(key));
+                console.log(student[key]);
+            }
+            console.log("=====================")
+            // 2. each
+            $.each(student, function(key, value) {
+                console.log(key, typeof(key));
+                console.log(student[key]);
+            });
+            console.log("=====================")
+        });
+    </script>
+    <button id="btn">학생조회</button><br><br>
+    <table id="result1" border="1">
+        <thead><tr><th>이름</th><th>나이</th><th>주소</th><th>폰번호</th></tr></thead>
+        <tbody>
+            <!--버튼 클릭 시 조회된 학생 정보를 출력하는 영역-->
+            <tr><td colspan="4" style="text-align: center;">현재학생 정보가 없습니다.</td></tr>
+        </tbody>
+    </table>
+    <script>
+        $(function(){
+            $("#btn").click(function() {
+                const students = [
+                    {name: "홍길동", age: 20, address: "서울", phone: "010-1111-2222"},
+                    {name: "김말똥", age: 30, address: "부산", phone: "010-5555-9999"},
+                    {name: "강개순", age: 25, address: "광주", phone: "010-2222-0000"}
+                ];
+        //학생 수만큼 tr 요소를 생성하여 student의 정보를 tbody 요소내에 출력하기
+                // students.forEach(function(student) {
+                //     const row = $("<tr></tr>");
+                //     row.append("<td>" + student.name + "</td>");
+                //     row.append("<td>" + student.age + "</td>");
+                //     row.append("<td>" + student.address + "</td>");
+                //     $("#result1 tbody").append(row);
+                // });
+                let result = "";
+                $.each(students,function(index,stu) {
+                    result +=`<tr><td>${stu.name}</td><td>${stu.age}</td><td>${stu.address}</td><td>${stu.phone}</td></tr>`;
+                })
+                $("#result1 tbody").html(result);   
+            });
+        });
+    </script>
+    <div id="area2">
+        <h1>item-1</h1><h1>item-2</h1><h1>item-3</h1><h1>item-4</h1><h1>item-5</h1>
+    </div>
+    <script>
+        $(function() {
+            /*
+            $("#area2").children().each(function(index,el){
+                console.log(index);
+                console.log(el); // 순수 자바 스크립트 요소 객체
+                console.log($(el)); // jQuery 방식의 요소 객체
+            });
+            */
+            $.each($("#area2").children(), function(index) {
+            // this : 순차적으로 접근되는 요소 객체.자바스크립 객체
+            // $(this) : 순차적으로 접근되는 요소 객체.jQuery 방식의 요소 객체
+            $(this).addClass("highlight-" + index);// class 속성 추가
+            // this.className ="highlight-" + index; // class 속성 추가
+            // addclass() : jQuery 의 메소드 .순수 자바스크립트 객체 사용 불가 메서드
+            // this.addclass("highlight-" + index); // class 속성 추가 / 실행안됨
+            // $(this).clasName = "highlight-" + index; // class 속성 추가 / 실행안됨
+            });
+        });
+    </script>
+    <h3>is 메소드</h3>
+    <p>
+        $("선택자1").is("선택자2")<br>
+        선택자1로 선택된 요소가 선택자2 와 일치 여부 리턴.논리값 반환
+    </p>
+    <h3 class="test">test1</h3>
+    <h3>test2</h3>
+    <h3 class="test">test3</h3>
+    <h3 class="test">test4</h3>
+    <h3>test5</h3>
+    <h3 class="test">test6</h3>
+    <script>
+        $(function() {
+            //$("h3") : h3 태그들
+            $("h3").each(function() {
+                // $(this) : h3 태그 중 현재 순회 중인 h3 요소 한개
+                if($(this).is(".test")) { // this 태그가 class='test' 여부.논리값 리턴턴
+                    $(this).css({backgroundColor : "orange"});
+                }
+            })
+            // h3 태그 중 class ='test'인 태그(들)
+            $("h3.test").css({backgroundColor : "red"});
+        })
+    </script>
+</body>
+</html>

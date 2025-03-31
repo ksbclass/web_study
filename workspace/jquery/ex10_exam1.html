@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h3>textarea 태그에 100자 까지 입력하려고 함.<br>
+        글자를 입력할때 마다 #remainnum 위체에 입력가능한 글자수를 출력하기 <br>
+        만약 입력한 내용이 100자 넘는 경우 빨강색 음수로 출력하고<br>
+        만약 입력한 내용이 100자 안넘는 경우 파랑색 숫자로 출력하기<br>
+    </h3>
+    <p>글쓰기</p><h1 id="remainnum">100</h1>
+    <textarea rows="10" cols="70"></textarea>
+    <script>
+        // $(function() {
+        //     $("textarea").on("keyup",function() {
+        //         let max =100;
+        //         let length = $(this).val().length;
+        //         let remain = max - length; 
+        //         $("#remainnum").text(remain);
+        //         if(0<=remain){
+        //             $("#remainnum").css({color : "blue"});
+        //         }else{
+        //             $("#remainnum").css({color : "red"});
+        //         }
+        //     })
+        // })
+        let num1 = $("h1").text();
+        // $("textarea").keydown(function() {
+            $("textarea").keyup(function() {
+            let num2 = num1 - $(this).val().length;
+            $("#remainnum").html(num2);
+            if(num2 >=0){
+                $("#remainnum").css({color : "blue"});
+            }else{
+                $("#remainnum").css({color : "red"});
+            }
+        })
+    </script>
+</body>
+</html>
