@@ -1,103 +1,113 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Tetris</title>
-        <style>
-            body {
-                background-color: rgb(9,17,26);
-            }
-            td {
-                width: 14px;
-                height: 14px;
-            }
-            #gameField {
-                margin-left: 20px;
-                margin-top: 20px;
-                float: left;
-            }
-            #scoreField {
-                float: right;
-                background-color: rgb(14,31,49);
-                margin-top: 1.9px;
-                margin-left: 3px;
-                width: 100px;
-            }
-            #score {
-                font-size: 28px;
-                text-align: center;
-                font-weight: bold;
-                color: white;
-                height: 30px;
-            }
-            .sub {
-                font-size: 22px;
-                text-align: center;
-                font-weight: bold;
-                color: white;
-                background-color: rgb(21,46,74);
-                padding: 10px;
-                margin: 0px;
-            }
-            #about {
-                font-size: 20px;
-            }
-            #about:hover {
-                color: rgb(199,82,82);
-            }
-            #nextTable {
-                float: right;
-                margin: 0px;
-                position: absolute;
-                left: 402px;
-                top: 358px;
-            }
-            #help {
-                font-size: 18px;
-                text-align: center;
-                font-weight: bold;
-                color: white;
-                height: 32px;
-                margin: 1px;
-            }
-            #comboField {
-                position: absolute;
-                left: 27px;
-                top: 320px;
-                width: 384px;
-                text-align: center;
-                font-size: 22px;
-                font-weight: bold;
-                color: white;
-            }
-        </style>
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테트리스</title>
+    <style>
+        body {
+            background-color: rgb(9,17,26);
+            display: flex;
+            justify-content: center; /* 수평 가운데 정렬 */
+            align-items: center; /* 수직 가운데 정렬 */
+            min-height: 100vh; /* 최소 뷰포트 높이로 설정 */
+            margin: 0; /* 기본 마진 제거 */
+        }
+        #gameFieldContainer {
+            display: flex; /* 게임 필드와 사이드바를 가로로 배치 */
+            align-items: flex-start; /* 내부 요소들을 세로 방향으로 상단 정렬 */
+            margin: 20px; /* 기존 마진 유지 또는 조정 */
+        }
+        #gameField {
+            margin-right: 20px; /* 스코어 필드와의 간격 */
+        }
+        td {
+            width: 14px;
+            height: 14px;
+        }
+        #scoreField {
+            background-color: rgb(14,31,49);
+            margin-top: 0; /* 상단 마진 제거 */
+            width: 100px;
+            display: flex; /* 내부 요소들을 세로로 배치하기 위한 flex 컨테이너 */
+            flex-direction: column;
+            align-items: center; /* 내부 요소들을 수평 가운데 정렬 */
+        }
+        #score {
+            font-size: 28px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            height: 30px;
+            margin-bottom: 20px; /* SCORE 아래 간격 추가 */
+        }
+        .sub {
+            font-size: 22px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            background-color: rgb(21,46,74);
+            padding: 10px;
+            margin-bottom: 10px; /* 각 sub 아래 간격 추가 */
+            width: 100%; /* 부모 너비에 맞춤 */
+            box-sizing: border-box; /* padding, border가 width에 포함되도록 함 */
+        }
+        #nextTable {
+            margin: 10px 0; /* 위아래 마진 추가 */
+        }
+        #help {
+            font-size: 18px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            height: 32px;
+            margin: 1px 0; /* 위아래 마진 추가 */
+        }
+        #gameover {
+            position: absolute; /* gameField 내에서 절대 위치 설정 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 가운데 정렬 */
+            background-color: rgba(0, 0, 0, 0.8); /* 반투명 배경 */
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 10; /* 다른 요소 위에 표시 */
+            text-align: center; /* 내부 텍스트 가운데 정렬 */
+        }
+        #gameover h1 {
+            margin-top: 0;
+        }
+        #gameover h4 {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameFieldContainer">
         <div id="gameField">
-            <div id="gameover">
+            <div id="gameover" style="display: none;">
                 <center>
                     <h1>Game Over</h1>
                     <h4>press 'F5' to restart</h4>
                 </center>
             </div>
+            </div>
+        <div id="scoreField">
+            <p class="sub">SCORE</p>
+            <p id="score">0</p>
+            <p class="sub">NEXT</p>
             <table id="nextTable" border=0>
                 <tr><td id="00"></td><td id="01"></td><td id="02"></td><td id="03"></td></tr>
                 <tr><td id="10"></td><td id="11"></td><td id="12"></td><td id="13"></td></tr>
                 <tr><td id="20"></td><td id="21"></td><td id="22"></td><td id="23"></td></tr>
                 <tr><td id="30"></td><td id="31"></td><td id="32"></td><td id="33"></td></tr>
             </table>
-            <div id="scoreField">
-                <p class="sub">SCORE</p>
-                <p id="score">0</p>
-                <p class="sub">NEXT</p>
-                <p><br><br><br></p>
-                <p class="sub">HELP</p>
-                <p id="help">← ↓ →</p>
-                <p id="help">Space Bar</p>
-                <p class="sub" id="about" onclick="info()">ABOUT</p>
-                <div id="comboField"><i></i></div>
-            </div>
-            <script type="text/javascript" src="game.js"></script>
+            <p class="sub">HELP</p>
+            <p id="help">← ↓ →</p>
+            <p id="help">Space Bar</p>
         </div>
-    </body>
+    </div>
+    <script type="text/javascript" src="game.js"></script>
+</body>
 </html>
