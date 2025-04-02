@@ -238,7 +238,7 @@ function rotateShape() {
         }
     }
     shapeCell = tempShapeCell;
-    currentShape = rotatedShapeIndex;
+    currentShape = rotatedShapeIndex; // currentShape 업데이트
     showShape(); // 회전된 위치에 블록을 다시 그리기
 }
 // 현재 블록이 회전 가능한지 확인하는 함수
