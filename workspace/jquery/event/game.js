@@ -1,46 +1,46 @@
-const height = 34, width = 20; // 필드 크기
-const arr = [
-    [[2, 2], [1, 2], [1, 1], [0, 1]],
-    [[1, 1], [1, 0], [0, 2], [0, 1]],
-    [[2, 1], [1, 1], [1, 2], [0, 2]],
-    [[1, 2], [1, 1], [0, 1], [0, 0]],
-    [[1, 2], [1, 1], [0, 2], [0, 1]],
-    [[2, 0], [1, 1], [1, 0], [0, 0]],
-    [[1, 1], [0, 2], [0, 1], [0, 0]],
-    [[2, 2], [1, 2], [1, 1], [0, 2]],
-    [[1, 2], [1, 1], [1, 0], [0, 1]],
-    [[3, 1], [2, 1], [1, 1], [0, 1]],
-    [[1, 3], [1, 2], [1, 1], [1, 0]],
-    [[2, 2], [2, 1], [1, 1], [0, 1]],
-    [[1, 0], [0, 2], [0, 1], [0, 0]],
-    [[2, 2], [1, 2], [0, 2], [0, 1]],
-    [[1, 2], [1, 1], [1, 0], [0, 2]],
-    [[2, 2], [2, 1], [1, 2], [0, 2]],
-    [[2, 2], [2, 1], [2, 0], [1, 0]],
-    [[2, 1], [1, 1], [0, 1], [0, 2]],
-    [[1, 2], [0, 2], [0, 1], [0, 0]]
+const height = 34, width = 20; // 게임 필드 높이와 너비
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0]; // 회전시 사용되는 인덱스 배열
+const arr2 = [
+    [[2, 2], [1, 2], [1, 1], [0, 1]], // ㅗ 모양 (T-Block)
+    [[1, 1], [1, 0], [0, 2], [0, 1]], // Z 모양 (Z-Block)
+    [[2, 1], [1, 1], [1, 2], [0, 2]], // S 모양 (S-Block)
+    [[1, 2], [1, 1], [0, 1], [0, 0]], // ㄴ 모양 (L-Block)
+    [[1, 2], [1, 1], [0, 2], [0, 1]], // 네모 모양 (O-Block)
+    [[2, 0], [1, 1], [1, 0], [0, 0]], // ㅡ 모양 (I-Block)
+    [[1, 1], [0, 2], [0, 1], [0, 0]], // 반대 S 모양 (S-Block, 회전된 형태)
+    [[2, 2], [1, 2], [1, 1], [0, 2]], // 반대 Z 모양 (Z-Block, 회전된 형태)
+    [[1, 2], [1, 1], [1, 0], [0, 1]], // L 모양 (L-Block, 회전된 형태)
+    [[3, 1], [2, 1], [1, 1], [0, 1]], // ㅣ 모양 (I-Block, 세워진 형태)
+    [[1, 3], [1, 2], [1, 1], [1, 0]], // T 모양 (T-Block, 회전된 형태)
+    [[2, 2], [2, 1], [1, 1], [0, 1]], // ㅏ 모양 (L-Block, 다른 회전 형태)
+    [[1, 0], [0, 2], [0, 1], [0, 0]], // 반대 Z 모양 (Z-Block, 다른 회전 형태)
+    [[2, 2], [1, 2], [0, 2], [0, 1]], // L-Block 과 유사한 모양
+    [[1, 2], [1, 1], [1, 0], [0, 2]], // 네모 모양 (O-Block, 다른 형태)
+    [[2, 2], [2, 1], [1, 2], [0, 2]], // Z-Block 과 유사한 모양
+    [[2, 2], [2, 1], [2, 0], [1, 0]], // I-Block 과 유사한 모양
+    [[2, 1], [1, 1], [0, 1], [0, 2]], // Z 모양 (Z-Block, 회전된 형태)
+    [[1, 2], [0, 2], [0, 1], [0, 0]]  // 네모 모양 (O-Block, 다른 형태)
 ];
-const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0];
 const colorarr = ["red", "yellow", "green", "darkgreen", "blue", "purple"]; // 블록 색상
-const tileColor = "rgb(9,17,26)";
-const wallColor = "rgb(22,41,63)";
-const initSpeed = 500;
-const deltaSpeed = 40;
-const fastSpeed = 25;
-const createPoint = [1, parseInt(width / 2) - 2];
+const tileColor = "rgb(9,17,26)";  // 게임필드 색상
+const wallColor = "rgb(22,41,63)"; // 게임필드 벽 색상
+const initSpeed = 500; // 초기 이동속도
+const deltaSpeed = 40; // 라인제거시 블록 이동속도
+const fastSpeed = 25;  // 아래키 눌렀을때 최대 속도
+const createPoint = [1, parseInt(width / 2) - 2]; // 새 블록 생성 위치
 
-let shapeColor;
-let shapeColorIndex, nextColorIndex;
-let movingSpeed;
-let fastMode = false;
-let shapeCell;
-let existField;
-let shapePoint;
-let currentShape, nextShape;
-let score;
-let gameFieldElement;
-let gameTableElement;
-let movingThread; 
+let shapeColor; // 현재 블록색상
+let shapeColorIndex, nextColorIndex; // 현재/다음 블록 색상 인덱스
+let movingSpeed; // 현재 블록 이동 속도
+let fastMode = false; // 빠른 이동 모드 활성화 여부를 저장하는 변수
+let shapeCell; // 현재 움직이는 블록의 셀 좌표를 저장하는 배열
+let existField; // 게임 필드에 이미 놓인 블록 정보를 저장하는 2차원 배열 
+let shapePoint; // 현재 움직이는 블록의 기준 좌표 
+let currentShape, nextShape; // 현재/다음에 나올 블록의 종류 
+let score; // 현재 게임 점수
+let gf; // 게임 필드 영역의 HTML 요소 (gameField id를 가진 div)
+let gt; // 게임 필드를 나타내는 HTML 테이블 요소 (gameTable id를 가진 table)
+let movingThread; // 블록 이동 타이머의 ID
 
 init();
 
@@ -52,28 +52,28 @@ document.addEventListener('keyup', keyUpEventHandler);
 function keyDownEventHandler(e) {
     switch (e.keyCode) {
         case 37:
-            setTimeout(() => moveLR(-1), 0);
+            setTimeout(() => moveLR(-1), 0); // 왼쪽 이동
             break;
         case 39:
-            setTimeout(() => moveLR(1), 0);
+            setTimeout(() => moveLR(1), 0); // 오른쪽 이동
             break;
         case 32:
-            setTimeout(rotateShape, 0);
+            setTimeout(rotateShape, 0); // 회전
             break;
         case 40:
-            moveFast();
+            moveFast(); // 빠른 이동
             break;
     }
 }
 // 키에서 손을 뗐을 때 keyUpEventHandler 함수
 function keyUpEventHandler(e) {
-    if (e.keyCode == 40) moveSlow();
+    if (e.keyCode == 40) moveSlow(); 
 }
 
 // 초기 설정
 // 게임을 시작하기 위한 초기 설정을 담당하는 함수
 function init() {
-    gameFieldElement = document.getElementById("gameField");
+    gf = document.getElementById("gameField");
     drawField();
     // 게임 필드 초기화 추가
     for (let i = 1; i < height - 1; i++) {
@@ -94,30 +94,28 @@ function init() {
     chooseNextColor();
     createShape();
 }
+// 주어진 좌표(y, x)에 해당하는 게임 테이블의 셀(cell) 요소를 반환하는 함수
 function gebi(y, x) {
-    if (!gameTableElement) return null;
-    if (!gameTableElement?.rows[y]?.cells[x]) {
+    if (!gt) return null; // 
+    if (!gt?.rows[y]?.cells[x]) { 
         return null;
     }
-    const cell = gameTableElement.rows[y].cells[x];
+    const cell = gt.rows[y].cells[x]; 
     if (!cell) {
-        console.error(`[${y}, ${x}] 셀을 찾을 수 없습니다.`); // 추가된 코드
+        console.error(`[${y}, ${x}] 셀을 찾을 수 없습니다.`); 
     }
-    return cell;
+    return cell; 
 }
 
 // 필드 초기화
 // 게임 필드에 이미 놓인 블록 정보를 초기화하는 함수
 function initExistField() {
     existField = new Array(height);
-    for (let i = 0; i < height; i++) existField[i] = new Array(width);
-    for (let i = 0; i < height; i++)
-        for (let j = 0; j < width; j++)
-            existField[i][j] = false;
+    for (let i = 0; i < height; i++) existField[i] = new Array(width).fill(false);
 }
 // 게임 필드를 HTML 테이블 형태로 그리는 함수
 function drawField() {
-    if (!gameFieldElement) return;
+    if (!gf) return;
     let fieldTag = `<table id="gameTable" border=0>`;
     for (let i = 0; i < height; i++) {
         fieldTag += "<tr>";
@@ -126,8 +124,8 @@ function drawField() {
         fieldTag += "</tr>";
     }
     fieldTag += "</table>";
-    gameFieldElement.innerHTML = fieldTag;
-    gameTableElement = document.getElementById("gameTable");
+    gf.innerHTML = fieldTag;
+    gt = document.getElementById("gameTable");
 }
 // 게임 필드 주변에 벽을 설정하는 함수
 function setWall() {
@@ -152,9 +150,9 @@ function setWall() {
 // 도형 생성
 // 다음에 나올 블록의 종류를 무작위로 선택하는 함수
 function chooseNextShape() {
-    nextShape = parseInt(Math.random() * arr.length);
+    nextShape = parseInt(Math.random() * arr2.length);
 }
-// 다음에 나올 블록의 색상을 순환적으로 선택하는 함수
+// 다음에 나올 블록의 색상을 무작위로  선택하는 함수
 function chooseNextColor() {
     nextColorIndex = parseInt(Math.random() * colorarr.length);
 }
@@ -165,7 +163,7 @@ function createShape() {
     currentShape = nextShape;
     currentColorIndex = nextColorIndex;
     shapeColor = colorarr[currentColorIndex];
-    const shape = arr[currentShape];
+    const shape = arr2[currentShape];
     chooseNextShape();
     chooseNextColor();
     displayNextShape();
@@ -183,12 +181,12 @@ function createShape() {
 // 다음에 나올 블록을 미리보기 영역에 표시하는 함수
 function displayNextShape() {
     initNextTable();
-    const shape = arr[nextShape];
+    const shape = arr2[nextShape];
     const color = colorarr[nextColorIndex];
     for (let i = 0; i < 4; i++) {
         const y = shape[i][0];
         const x = shape[i][1];
-        const nextTableCell = document.getElementById(`nextTable`).rows[y].cells[x];
+        const nextTableCell = document.getElementById("nextTable").rows[y].cells[x];
         if (nextTableCell) {
             nextTableCell.style.background = color;
         }
@@ -248,7 +246,7 @@ function rotateShape() {
 }
 // 현재 블록이 회전 가능한지 확인하는 함수
 function canRotate() {
-    const tempShape = arr[arr2[currentShape]];
+    const tempShape = arr2[arr[currentShape]];
     for (let i = 0; i < 4; i++) {
         const ty = shapePoint[0] + tempShape[i][0];
         const tx = shapePoint[1] + tempShape[i][1];
@@ -260,18 +258,21 @@ function canRotate() {
 function isValidPoint(y, x) {
     return !(y <= 0 || y >= height - 1 || x <= 0 || x >= width - 1 || existField[y][x]);
 }
+// 셀의 배경색을 설정하는 함수
+function setCellColor(y, x, color) {
+    const cell = gebi(y, x);
+    if (cell) cell.style.background = color;
+}
 // 현재 움직이는 블록을 화면에서 지우는 함수
 function removeShape() {
     for (let i = 0; i < shapeCell.length; i++) {
-        const el = gebi(shapeCell[i][0], shapeCell[i][1]);
-        if (el) el.style.background = tileColor;
+        setCellColor(shapeCell[i][0], shapeCell[i][1], tileColor);
     }
 }
 // 현재 움직이는 블록을 화면에 그리는 함수
 function showShape() {
     for (let i = 0; i < shapeCell.length; i++) {
-        const el = gebi(shapeCell[i][0], shapeCell[i][1]);
-        if (el) el.style.background = shapeColor;
+        setCellColor(shapeCell[i][0], shapeCell[i][1], shapeColor);
     }
 }
 // 현재 블록이 주어진 방향(dy, dx)으로 이동 가능한지 확인하는 함수
@@ -371,8 +372,9 @@ function updateScore(plusScore) {
 // 게임 종료 처리 함수
 function gameOver() {
     clearTimeout(movingThread);
+    movingThread = null; // movingThread 초기화
     shapeCell = []; // shapeCell 초기화
-    if (gameTableElement) {
+    if (gt) {
         for (let i = 1; i < height - 1; i++) {
             for (let j = 1; j < width - 1; j++) {
                 const cell = gebi(i, j);

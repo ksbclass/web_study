@@ -8,15 +8,15 @@
         body {
             background-color: rgb(9,17,26);
             display: flex;
-            justify-content: center; 
-            align-items: center; 
+            justify-content: center;
+            align-items: center;
             min-height: 100vh; /* 최소 뷰포트 높이로 설정 */
-            margin: 0; 
+            margin: 0;
         }
         #gameFieldContainer {
-            display: flex; 
-            align-items: flex-start; /* 내부 요소들을 세로 방향으로 상단 정렬 */
-            margin: 20px; 
+            display: flex;
+            align-items: flex-start;/* 내부 요소들을 세로 방향으로 상단 정렬 */
+            margin: 20px;
         }
         #gameField {
             margin-right: 20px;
@@ -27,11 +27,11 @@
         }
         #scoreField {
             background-color: rgb(14,31,49);
-            margin-top: 0; 
+            margin-top: 0;
             width: 100px;
-            display: flex; 
+            display: flex;
             flex-direction: column;
-            align-items: center; 
+            align-items: center;
         }
         #score {
             font-size: 28px;
@@ -39,7 +39,7 @@
             font-weight: bold;
             color: white;
             height: 30px;
-            margin-bottom: 20px; 
+            margin-bottom: 20px;
         }
         .sub {
             font-size: 22px;
@@ -48,12 +48,12 @@
             color: white;
             background-color: rgb(21,46,74);
             padding: 10px;
-            margin-bottom: 10px; 
+            margin-bottom: 10px;
             width: 100%;
-            box-sizing: border-box; 
+            box-sizing: border-box;
         }
         #nextTable {
-            margin: 10px 0; 
+            margin: 10px 0;
         }
         #help {
             font-size: 18px;
@@ -61,19 +61,19 @@
             font-weight: bold;
             color: white;
             height: 32px;
-            margin: 1px 0; 
+            margin: 1px 0;
         }
         #gameover {
-            position: absolute; 
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8); 
+            background-color: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 20px;
             border-radius: 5px;
             z-index: 10; /* 다른 요소 위에 표시 */
-            text-align: center; 
+            text-align: center;
         }
         #gameover h1 {
             margin-top: 0;
@@ -92,16 +92,16 @@
                     <h4>press 'F5' to restart</h4>
                 </center>
             </div>
-            </div>
+        </div>
         <div id="scoreField">
             <p class="sub">SCORE</p>
             <p id="score">0</p>
             <p class="sub">NEXT</p>
             <table id="nextTable" border=0>
-                <tr><td id="00"></td><td id="01"></td><td id="02"></td><td id="03"></td></tr>
-                <tr><td id="10"></td><td id="11"></td><td id="12"></td><td id="13"></td></tr>
-                <tr><td id="20"></td><td id="21"></td><td id="22"></td><td id="23"></td></tr>
-                <tr><td id="30"></td><td id="31"></td><td id="32"></td><td id="33"></td></tr>
+                <tr><td id="next-00"></td><td id="next-01"></td><td id="next-02"></td><td id="next-03"></td></tr>
+                <tr><td id="next-10"></td><td id="next-11"></td><td id="next-12"></td><td id="next-13"></td></tr>
+                <tr><td id="next-20"></td><td id="next-21"></td><td id="next-22"></td><td id="next-23"></td></tr>
+                <tr><td id="next-30"></td><td id="next-31"></td><td id="next-32"></td><td id="next-33"></td></tr>
             </table>
             <p class="sub">HELP</p>
             <p id="help">← ↓ →</p>
