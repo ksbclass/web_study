@@ -20,7 +20,7 @@ const arr = [
     [[2, 1], [1, 1], [0, 1], [0, 2]],
     [[1, 2], [0, 2], [0, 1], [0, 0]]
 ];
-const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0]; // list -> arr2로 변경
+const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0];
 const colorarr = ["red", "yellow", "green", "darkgreen", "blue", "purple"]; // 블록 색상
 const tileColor = "rgb(9,17,26)";
 const wallColor = "rgb(22,41,63)";
@@ -40,7 +40,7 @@ let currentShape, nextShape;
 let score;
 let gameFieldElement;
 let gameTableElement;
-let movingThread; // movingThread 변수 선언
+let movingThread; 
 
 init();
 
@@ -75,6 +75,13 @@ function keyUpEventHandler(e) {
 function init() {
     gameFieldElement = document.getElementById("gameField");
     drawField();
+    // 게임 필드 초기화 추가
+    for (let i = 1; i < height - 1; i++) {
+        for (let j = 1; j < width - 1; j++) {
+            const cell = gebi(i, j);
+            if (cell) cell.style.background = tileColor;
+        }
+    }
     initExistField();
     setWall();
     nextColorIndex = -1;
@@ -86,21 +93,17 @@ function init() {
     chooseNextShape();
     chooseNextColor();
     createShape();
-    // 게임 필드 초기화 추가
-    for (let i = 1; i < height - 1; i++) {
-        for (let j = 1; j < width - 1; j++) {
-            const cell = gebi(i, j);
-            if (cell) cell.style.background = tileColor;
-        }
-    }
 }
-
 function gebi(y, x) {
-    if (!gameTableElement) return null; // gameTableElement가 초기화되지 않았을 경우 null 반환
+    if (!gameTableElement) return null;
     if (!gameTableElement?.rows[y]?.cells[x]) {
         return null;
     }
-    return gameTableElement.rows[y].cells[x];
+    const cell = gameTableElement.rows[y].cells[x];
+    if (!cell) {
+        console.error(`[${y}, ${x}] 셀을 찾을 수 없습니다.`); // 추가된 코드
+    }
+    return cell;
 }
 
 // 필드 초기화
@@ -160,13 +163,13 @@ function createShape() {
     shapePoint[0] = createPoint[0];
     shapePoint[1] = createPoint[1];
     currentShape = nextShape;
-    currentColorIndex = nextColorIndex; // currentColorIndex 할당
+    currentColorIndex = nextColorIndex;
     shapeColor = colorarr[currentColorIndex];
     const shape = arr[currentShape];
     chooseNextShape();
     chooseNextColor();
     displayNextShape();
-    shapeCell = []; // shapeCell 초기화
+    shapeCell = [];
     for (let i = 0; i < shape.length; i++) {
         const sy = shapePoint[0] + shape[i][0];
         const sx = shapePoint[1] + shape[i][1];
@@ -211,7 +214,7 @@ function moveDown() {
     if (!canMove(1, 0)) {
         commitExist();
         checkLine();
-        shapeCell = []; // shapeCell 초기화
+        shapeCell = [];
         createShape();
         return;
     }
@@ -226,24 +229,26 @@ function rotateShape() {
     if (!canRotate()) return;
     removeShape();
     const tempShapeCell = [];
-    const rotatedShapeIndex = arr2[currentShape]; // list -> arr2로 변경
-    const rotatedShape = arr[rotatedShapeIndex];
+
     for (let i = 0; i < 4; i++) {
-        const sy = shapePoint[0] + rotatedShape[i][0];
-        const sx = shapePoint[1] + rotatedShape[i][1];
-        tempShapeCell.push([sy, sx]);
-        if (!isValidPoint(sy, sx)) {
-            showShape(); // 회전 불가능하면 원래대로 그림
+        const relativeY = shapeCell[i][0] - shapePoint[0];
+        const relativeX = shapeCell[i][1] - shapePoint[1];
+        const rotatedY = shapePoint[0] + relativeX;
+        const rotatedX = shapePoint[1] - relativeY;
+        tempShapeCell.push([rotatedY, rotatedX]);
+
+        if (!isValidPoint(rotatedY, rotatedX)) {
+            showShape();
             return;
         }
     }
     shapeCell = tempShapeCell;
-    currentShape = rotatedShapeIndex; // currentShape 업데이트
-    showShape(); // 회전된 위치에 블록을 다시 그리기
+
+    showShape();
 }
 // 현재 블록이 회전 가능한지 확인하는 함수
 function canRotate() {
-    const tempShape = arr[arr2[currentShape]]; // list -> arr2로 변경
+    const tempShape = arr[arr2[currentShape]];
     for (let i = 0; i < 4; i++) {
         const ty = shapePoint[0] + tempShape[i][0];
         const tx = shapePoint[1] + tempShape[i][1];
@@ -323,9 +328,9 @@ function checkLine() {
         }
     }
     if (linesCleared > 0) {
-        updateScore(plusScore * linesCleared * linesCleared); // 동시 제거된 라인 수에 따라 점수 증가
+        updateScore(plusScore * linesCleared);
         if (movingSpeed > fastSpeed && linesCleared > 0) {
-            movingSpeed = Math.max(fastSpeed, movingSpeed - deltaSpeed * linesCleared); // 속도 증가 (최소 fastSpeed)
+            movingSpeed = Math.max(fastSpeed, movingSpeed - deltaSpeed * linesCleared);
             if (!!fastMode) {
                 clearTimeout(movingThread);
                 movingThread = setTimeout(moveDown, movingSpeed);
@@ -366,7 +371,6 @@ function updateScore(plusScore) {
 // 게임 종료 처리 함수
 function gameOver() {
     clearTimeout(movingThread);
-    initExistField();
     shapeCell = []; // shapeCell 초기화
     if (gameTableElement) {
         for (let i = 1; i < height - 1; i++) {
@@ -374,11 +378,11 @@ function gameOver() {
                 const cell = gebi(i, j);
                 if (cell) {
                     cell.style.background = tileColor;
-                    existField[i][j] = false; // existField 배열 초기화 추가
                 }
             }
         }
     }
+    initExistField();
     const restart = confirm(`[Game Over]\nScore: ${score}\n다시 시작하시겠습니까?`);
     const gameFieldElement = document.getElementById("gameField");
     const gameoverElement = document.getElementById("gameover");
@@ -386,16 +390,9 @@ function gameOver() {
         if (gameFieldElement) gameFieldElement.style.display = "block";
         if (gameoverElement) gameoverElement.style.display = "none";
         init();
-        movingThread = setTimeout(moveDown, movingSpeed); // 게임 루프 재시작
+        movingThread = setTimeout(moveDown, movingSpeed);
     } else {
         if (gameFieldElement) gameFieldElement.style.display = "none";
         if (gameoverElement) gameoverElement.style.display = "block";
-    }
-    // 게임 필드 초기화 추가
-    for (let i = 1; i < height - 1; i++) {
-        for (let j = 1; j < width - 1; j++) {
-            const cell = gebi(i, j);
-            if (cell) cell.style.background = tileColor;
-        }
     }
 }
