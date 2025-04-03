@@ -1,6 +1,5 @@
 const height = 34, width = 20; // 게임 필드 높이와 너비
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0]; // 회전시 사용되는 인덱스 배열
-const arr2 = [
+const arr = [
     [[2, 2], [1, 2], [1, 1], [0, 1]], // ㅗ 모양 (T-Block)
     [[1, 1], [1, 0], [0, 2], [0, 1]], // Z 모양 (Z-Block)
     [[2, 1], [1, 1], [1, 2], [0, 2]], // S 모양 (S-Block)
@@ -21,6 +20,7 @@ const arr2 = [
     [[2, 1], [1, 1], [0, 1], [0, 2]], // Z 모양 (Z-Block, 회전된 형태)
     [[1, 2], [0, 2], [0, 1], [0, 0]]  // 네모 모양 (O-Block, 다른 형태)
 ];
+const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0]; // 회전시 사용되는 인덱스 배열
 const colorarr = ["red", "yellow", "green", "darkgreen", "blue", "purple"]; // 블록 색상
 const tileColor = "rgb(9,17,26)";  // 게임필드 색상
 const wallColor = "rgb(22,41,63)"; // 게임필드 벽 색상
@@ -38,9 +38,10 @@ let existField; // 게임 필드에 이미 놓인 블록 정보를 저장하는 
 let shapePoint; // 현재 움직이는 블록의 기준 좌표 
 let currentShape, nextShape; // 현재/다음에 나올 블록의 종류 
 let score; // 현재 게임 점수
-let gf; // 게임 필드 영역의 HTML 요소 (gameField id를 가진 div)
-let gt; // 게임 필드를 나타내는 HTML 테이블 요소 (gameTable id를 가진 table)
+let gf = document.getElementById("gameField");  // 게임 필드 영역의 HTML 요소 (gameField id를 가진 div)
+let gt ;  // 게임 필드를 나타내는 HTML 테이블 요소 (gameTable id를 가진 table)
 let movingThread; // 블록 이동 타이머의 ID
+const gameoverElement = document.getElementById("gameover");
 
 init();
 
@@ -73,7 +74,6 @@ function keyUpEventHandler(e) {
 // 초기 설정
 // 게임을 시작하기 위한 초기 설정을 담당하는 함수
 function init() {
-    gf = document.getElementById("gameField");
     drawField();
     // 게임 필드 초기화 추가
     for (let i = 1; i < height - 1; i++) {
@@ -150,7 +150,7 @@ function setWall() {
 // 도형 생성
 // 다음에 나올 블록의 종류를 무작위로 선택하는 함수
 function chooseNextShape() {
-    nextShape = parseInt(Math.random() * arr2.length);
+    nextShape = parseInt(Math.random() * arr.length);
 }
 // 다음에 나올 블록의 색상을 무작위로  선택하는 함수
 function chooseNextColor() {
@@ -163,7 +163,7 @@ function createShape() {
     currentShape = nextShape;
     currentColorIndex = nextColorIndex;
     shapeColor = colorarr[currentColorIndex];
-    const shape = arr2[currentShape];
+    const shape = arr[currentShape];
     chooseNextShape();
     chooseNextColor();
     displayNextShape();
@@ -181,7 +181,7 @@ function createShape() {
 // 다음에 나올 블록을 미리보기 영역에 표시하는 함수
 function displayNextShape() {
     initNextTable();
-    const shape = arr2[nextShape];
+    const shape = arr[nextShape];
     const color = colorarr[nextColorIndex];
     for (let i = 0; i < 4; i++) {
         const y = shape[i][0];
@@ -246,7 +246,7 @@ function rotateShape() {
 }
 // 현재 블록이 회전 가능한지 확인하는 함수
 function canRotate() {
-    const tempShape = arr2[arr[currentShape]];
+    const tempShape = arr[arr2[currentShape]];
     for (let i = 0; i < 4; i++) {
         const ty = shapePoint[0] + tempShape[i][0];
         const tx = shapePoint[1] + tempShape[i][1];
@@ -372,8 +372,8 @@ function updateScore(plusScore) {
 // 게임 종료 처리 함수
 function gameOver() {
     clearTimeout(movingThread);
-    movingThread = null; // movingThread 초기화
-    shapeCell = []; // shapeCell 초기화
+    movingThread = null;
+    shapeCell = [];
     if (gt) {
         for (let i = 1; i < height - 1; i++) {
             for (let j = 1; j < width - 1; j++) {
@@ -384,17 +384,16 @@ function gameOver() {
             }
         }
     }
+    // existField 배열 초기화 추가
     initExistField();
     const restart = confirm(`[Game Over]\nScore: ${score}\n다시 시작하시겠습니까?`);
-    const gameFieldElement = document.getElementById("gameField");
-    const gameoverElement = document.getElementById("gameover");
     if (restart) {
-        if (gameFieldElement) gameFieldElement.style.display = "block";
+        if (gf) gf.style.display = "block";
         if (gameoverElement) gameoverElement.style.display = "none";
         init();
         movingThread = setTimeout(moveDown, movingSpeed);
     } else {
-        if (gameFieldElement) gameFieldElement.style.display = "none";
+        if (gf) gf.style.display = "none";
         if (gameoverElement) gameoverElement.style.display = "block";
     }
 }
