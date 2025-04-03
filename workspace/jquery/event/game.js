@@ -75,13 +75,6 @@ function keyUpEventHandler(e) {
 // 게임을 시작하기 위한 초기 설정을 담당하는 함수
 function init() {
     drawField();
-    // 게임 필드 초기화 추가
-    for (let i = 1; i < height - 1; i++) {
-        for (let j = 1; j < width - 1; j++) {
-            const cell = gebi(i, j);
-            if (cell) cell.style.background = tileColor;
-        }
-    }
     initExistField();
     setWall();
     nextColorIndex = -1;
@@ -294,19 +287,15 @@ function moveLR(delta) {
 }
 // 빠른 이동 모드를 활성화하는 함수
 function moveFast() {
-    if (fastMode) return;
     clearTimeout(movingThread);
     movingSpeed = fastSpeed;
     movingThread = setTimeout(moveDown, movingSpeed);
-    fastMode = true;
 }
 // 빠른 이동 모드를 해제하는 함수
 function moveSlow() {
-    if (!fastMode) return;
     clearTimeout(movingThread);
     movingSpeed = initSpeed;
     movingThread = setTimeout(moveDown, movingSpeed);
-    fastMode = false;
 }
 
 // 현재 움직이는 블록을 게임 필드에 고정시키는 함수
@@ -371,29 +360,13 @@ function updateScore(plusScore) {
 // 종료
 // 게임 종료 처리 함수
 function gameOver() {
-    clearTimeout(movingThread);
-    movingThread = null;
-    shapeCell = [];
-    if (gt) {
-        for (let i = 1; i < height - 1; i++) {
-            for (let j = 1; j < width - 1; j++) {
-                const cell = gebi(i, j);
-                if (cell) {
-                    cell.style.background = tileColor;
-                }
-            }
-        }
-    }
-    // existField 배열 초기화 추가
+    alert("Game Over!");
     initExistField();
     const restart = confirm(`[Game Over]\nScore: ${score}\n다시 시작하시겠습니까?`);
     if (restart) {
-        if (gf) gf.style.display = "block";
-        if (gameoverElement) gameoverElement.style.display = "none";
-        init();
-        movingThread = setTimeout(moveDown, movingSpeed);
+        location.reload();
     } else {
         if (gf) gf.style.display = "none";
-        if (gameoverElement) gameoverElement.style.display = "block";
+        document.getElementById("scoreField").style.display = "none";   
     }
 }
